@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install location
-CMAKE_INSTALL_PREFIX=$HOME/tmp
+CMAKE_INSTALL_PREFIX=$HOME/tmp/cuemol2
 
 # Prerequisites
 PROJ_DIR=$HOME/proj64
