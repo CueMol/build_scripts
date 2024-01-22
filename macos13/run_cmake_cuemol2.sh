@@ -2,7 +2,8 @@
 
 set -eux
 
-BUILD_TYPE=Debug
+# BUILD_TYPE=Debug
+BUILD_TYPE=Release
 
 PYTHON=python3
 PYTHON_ROOT=$($PYTHON -c 'import sys;import pathlib; print(pathlib.Path(sys.executable).parent.parent)')
