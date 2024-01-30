@@ -13,6 +13,10 @@ wget -c --content-disposition https://github.com/POV-Ray/povray/archive/refs/tag
 tar xzf povray-3.7.0.10.tar.gz
 cd povray-3.7.0.10
 
+cd unix/
+./prebuild.sh
+cd ../
+
 instpath=$HOME/proj64/povray/
 
 ./configure \
@@ -24,3 +28,8 @@ instpath=$HOME/proj64/povray/
     --without-libjpeg \
     --without-libtiff
 
+make -j 8
+make install
+
+cd ..
+rm -rf povray-3.7.0.10
