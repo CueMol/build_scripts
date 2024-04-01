@@ -1,5 +1,5 @@
 #!/bin/sh
-instpath=$HOME/proj64/povray/boost_1_76_static
+instpath=$HOME/proj64/povray_bundle/boost_1_76_static
 
 ./b2 \
  --prefix=$instpath \

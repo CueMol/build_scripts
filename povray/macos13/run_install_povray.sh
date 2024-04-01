@@ -4,7 +4,7 @@ set -eux
 
 VER=0.0.1
 BUNDLE_DIR=$HOME/proj64/cuemol2_bundle_${VER}
-POVRAY_SRC=$HOME/proj64/povray/
+POVRAY_SRC=$HOME/proj64/povray_bundleb/
 
 ######
 
