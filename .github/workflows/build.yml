@@ -22,11 +22,11 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Install boost
+    - name: Install lcms2
       shell: bash
       run: |
         cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_boost.sh $HOME
+        bash macos_arm64/build_lcms2.sh $HOME
         pwd
         ls -la $HOME/builds
 
@@ -35,6 +35,14 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}
         bash macos_arm64/build_fftw3.sh $HOME
+        pwd
+        ls -la $HOME/builds
+
+    - name: Install boost
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        bash macos_arm64/build_boost.sh $HOME
         pwd
         ls -la $HOME/builds
 
