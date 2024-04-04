@@ -46,59 +46,39 @@ jobs:
         pwd
         ls -la $HOME/builds
 
-    - name: Install boost
+    # - name: Install boost
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_boost.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
+
+    # - name: Install CGAL
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_cgal.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
+
+    - name: Create deplibs bundle
       shell: bash
+      env:
+        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
       run: |
+        cd $HOME/builds
+        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} *
         cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_boost.sh $HOME
-        pwd
-        ls -la $HOME/builds
+        ls -l ${{ env.ARTIFACT_NAME }}
 
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_cgal.sh $HOME
-        pwd
-        ls -la $HOME/builds
-
-
-    # - name: Build povray
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos/run_build_povray.sh $HOME
-
-    # - name: Check build
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     ls -la $HOME/povray_bundle/bin
-    #     otool -L $HOME/povray_bundle/bin/povray
-    #     $HOME/povray_bundle/bin/povray -h
-
-    # - name: Create bundle
-    #   shell: bash
-    #   env:
-    #     ARTIFACT_NAME: povray_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-    #   run: |
-    #     OUTPUT_DIR=${GITHUB_WORKSPACE}/povray
-    #     cd ${GITHUB_WORKSPACE}
-    #     mkdir -p ${OUTPUT_DIR}/bin
-    #     mkdir -p ${OUTPUT_DIR}/include
-    #     ls -la $HOME/povray_bundle
-    #     cp $HOME/povray_bundle/bin/* ${OUTPUT_DIR}/bin/
-    #     cp $HOME/povray_bundle/share/povray-*/include/* ${OUTPUT_DIR}/include
-    #     tar cjvf ${{ env.ARTIFACT_NAME }} povray
-    #     ls -l ${{ env.ARTIFACT_NAME }}
-
-    # - name: Upload artifact
-    #   env:
-    #     ARTIFACT_NAME: povray_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: povray_bundle_macos_arm64
-    #     path: ${{ env.ARTIFACT_NAME }}
+    - name: Upload artifact
+      env:
+        ARTIFACT_NAME: povray_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+      uses: actions/upload-artifact@v4
+      with:
+        name: deplibs_macos_arm64
+        path: ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
