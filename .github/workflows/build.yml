@@ -28,7 +28,15 @@ jobs:
         cd ${GITHUB_WORKSPACE}
         bash macos_arm64/build_boost.sh $HOME
         pwd
-        ls -la $HOME/libs
+        ls -la $HOME/builds
+
+    - name: Install fftw3
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        bash macos_arm64/build_fftw3.sh $HOME
+        pwd
+        ls -la $HOME/builds
 
     # - name: Install libpng
     #   shell: bash
