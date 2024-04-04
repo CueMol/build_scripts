@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    # tags:
-    #   - "v*.*.*"
+    tags:
+      - "v*.*.*"
 
 ###############################################
 
@@ -149,8 +149,25 @@ jobs:
         ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
       uses: actions/upload-artifact@v4
       with:
-        name: deplibs_macos_arm64
+        name: deplibs_macos_intel
         path: ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
+  release_build:
+    needs: [build_mac_arm64,build_mac_intel]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download All Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        merge-multiple: true
+    - run: |
+        ls -lR
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: artifacts/*.tar.bz2
