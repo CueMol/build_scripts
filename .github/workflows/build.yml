@@ -82,7 +82,6 @@ jobs:
 
 ###############################################
 
-jobs:
   build_mac_intel:
     name: "MacOS 12 intel clang"
     runs-on: macos-12
