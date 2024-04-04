@@ -54,13 +54,14 @@ jobs:
         pwd
         ls -la $HOME/builds
 
-    # - name: Install libpng
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos/run_build_libpng12.sh $HOME
-    #     pwd
-    #     ls -la $HOME/povray_bundle
+    - name: Install CGAL
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        bash macos_arm64/build_cgal.sh $HOME
+        pwd
+        ls -la $HOME/builds
+
 
     # - name: Build povray
     #   shell: bash
