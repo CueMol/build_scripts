@@ -16,6 +16,8 @@ cd CGAL-4.14.3
 
 INSTPATH=$BASEDIR/builds/CGAL-4.14.3
 
+mkdir build && cd build
+
 cmake .. \
       -DCMAKE_INSTALL_PREFIX=$INSTPATH \
       -DCMAKE_BUILD_TYPE="Release" \
