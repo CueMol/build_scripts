@@ -5,8 +5,11 @@ set -eux
 VER=0.0.1
 BUNDLE_DIR=$HOME/proj64/cuemol2_bundle_${VER}
 
-# TODO: Wget ffmpeg macos/arm64 bin
 FFMPEG_DIST=ffmpeg61arm
+
+# TODO: Wget ffmpeg macos/arm64 bin
+# wget https://www.osxexperts.net/${FFMPEG_DIST}.zip
+
 mkdir $FFMPEG_DIST
 cd $FFMPEG_DIST
 unzip ../${FFMPEG_DIST}.zip
