@@ -9,7 +9,6 @@ jobs:
   build_win_x64:
     name: "Windows intel msvc"
     runs-on: windows-2019
-    steps:
 
     steps:
     - name: Install prerequisite
