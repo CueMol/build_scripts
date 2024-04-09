@@ -23,6 +23,6 @@ jobs:
     - name: Install glew
       shell: cmd
       run: |
-        cd %%GITHUB_WORKSPACE%%
+        cd %GITHUB_WORKSPACE%
         .\win_x64\build_glew.bat %HOME%
         dir %HOME%\builds
