@@ -1,0 +1,28 @@
+name: Build Windows test1
+
+on:
+  push:
+    branches:
+      - main
+
+  build_win_x64:
+    name: "Windows intel msvc"
+    runs-on: windows-2019
+    steps:
+
+    steps:
+    - name: Install prerequisite
+      run: |
+        choco install -r wget
+
+    - uses: actions/checkout@v4
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Install glew
+      shell: cmd
+      run: |
+        cd %%GITHUB_WORKSPACE%%
+        .\win_x64\build_glew.bat %HOME%
+        dir %HOME%\builds

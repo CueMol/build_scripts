@@ -154,6 +154,22 @@ jobs:
 
 ###############################################
 
+  build_win_x64:
+    name: "Windows intel msvc"
+    runs-on: windows-2019
+    steps:
+
+    steps:
+    - name: Install prerequisite
+      run: |
+        choco install -r wget
+
+    - uses: actions/checkout@v4
+
+
+
+###############################################
+
   release_build:
     needs: [build_mac_arm64,build_mac_intel]
     runs-on: ubuntu-latest
