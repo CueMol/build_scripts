@@ -14,11 +14,14 @@ cmake -S . -B build ^
  -DWITH_CGAL_Qt5=OFF ^
  -DWITH_CGAL_ImageIO=OFF ^
  -DCGAL_DISABLE_GMP=TRUE ^
+ -DCGAL_HEADER_ONLY=TRUE ^
  -DBUILD_SHARED_LIBS=FALSE
 
 REM  -DCMAKE_CXX_FLAGS="-std=c++14"
 
 cmake --build build --config Release
+
+rd /s /q %INSTPATH%
 cmake --install build --config Release
 
 cd ..
