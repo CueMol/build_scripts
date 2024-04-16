@@ -2,8 +2,8 @@ SET DEPLIBS_DIR=c:\proj64_deplibs
 SET INSTPATH=%DEPLIBS_DIR%\fftw-3.3.10
 
 REM wget -c https://www.fftw.org/fftw-3.3.10.tar.gz
-REM tar xzf lcms2-2.16.tar.gz
-REM cd lcms2-2.16
+tar xzf fftw-3.3.10.tar.gz
+cd fftw-3.3.10
 
 echo "DEPLIBS_DIR: " %DEPLIBS_DIR%
 
@@ -19,3 +19,5 @@ cmake --build build --config Release
 
 rd /s /q %INSTPATH%
 cmake --install build --config Release
+
+cd ..

@@ -1,3 +1,4 @@
+REM wget "https://github.com/CGAL/cgal/releases/download/releases%%2FCGAL-4.14.3/CGAL-4.14.3.tar.xz"
 tar xJf CGAL-4.14.3.tar.xz
 cd CGAL-4.14.3
 
