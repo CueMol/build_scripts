@@ -158,7 +158,6 @@ jobs:
 
 ###############################################
 
-jobs:
   build_linux_x64:
     name: "Ubuntu arm64 gcc"
     runs-on: ubuntu-22.04
