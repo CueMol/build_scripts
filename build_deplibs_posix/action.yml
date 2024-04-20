@@ -1,0 +1,69 @@
+name: 'Build deplibs posix'
+description: 'Build deplibs posix'
+
+inputs:
+  basedir:
+     description: 'base dir'
+     required: true
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: Install glew
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      pwd
+      ls -la $BASEDIR
+
+  - name: Install lcms2
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      pwd
+      ls -la $BASEDIR
+
+  - name: Install fftw3
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      pwd
+      ls -la $BASEDIR
+
+  - name: Install boost
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      pwd
+      ls -la $BASEDIR
+
+  - name: Install CGAL
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      pwd
+      ls -la $BASEDIR
+
+  - name: Create deplibs tarball
+    shell: bash
+    env:
+      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+    run: |
+      BASEDIR=${{ inputs.basedir }}
+      # Clean-up
+      rm -rf $BASEDIR/tmp
+      cd $BASEDIR/..
+      tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
+      cd ${GITHUB_WORKSPACE}
+      ls -lh ${{ env.ARTIFACT_NAME }}

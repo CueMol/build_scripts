@@ -18,75 +18,21 @@ jobs:
     - name: Install prerequisites
       run: |
         brew install automake
-        # brew list
 
     - uses: actions/checkout@v4
 
-    - name: Install glew
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
+    - name: Build deplibs
+      uses: ./build_deplibs_posix
+      with:
+        basedir: ${{ github.workspace }}/target
 
-    - name: Install lcms2
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install fftw3
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install boost
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Create deplibs tarball
-      shell: bash
+    - name: Upload artifact
       env:
         ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      run: |
-        BASEDIR=${{ github.workspace }}/target
-        # Clean-up
-        rm -rf $BASEDIR/tmp
-        cd $BASEDIR/..
-        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
-        cd ${GITHUB_WORKSPACE}
-        ls -lh ${{ env.ARTIFACT_NAME }}
-
-    # - name: Upload artifact
-    #   env:
-    #     ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: deplibs_macos_arm64
-    #     path: ${{ env.ARTIFACT_NAME }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: deplibs_macos_arm64
+        path: ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
@@ -102,62 +48,6 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Install glew
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install lcms2
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install fftw3
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install boost
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Create deplibs tarball
-      shell: bash
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      run: |
-        BASEDIR=${{ github.workspace }}/target
-        cd $BASEDIR/..
-        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
-        cd ${GITHUB_WORKSPACE}
-        ls -l ${{ env.ARTIFACT_NAME }}
-
   #   - name: Upload artifact
   #     env:
   #       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
@@ -169,7 +59,7 @@ jobs:
 ###############################################
 
   build_linux_x64:
-    name: "Ubuntu arm64 gcc"
+    name: "Ubuntu x64 gcc"
     runs-on: ubuntu-22.04
     steps:
 
@@ -182,63 +72,6 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Install glew
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install lcms2
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install fftw3
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install boost
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        BASEDIR=${{ github.workspace }}/target
-        bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-        pwd
-        ls -la $BASEDIR
-
-    - name: Create deplibs tarball
-      shell: bash
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      run: |
-        BASEDIR=${{ github.workspace }}/target
-        # Clean-up
-        rm -rf $BASEDIR/tmp
-        cd $BASEDIR/..
-        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
-        cd ${GITHUB_WORKSPACE}
-        ls -lh ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
