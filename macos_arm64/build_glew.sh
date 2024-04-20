@@ -20,8 +20,7 @@ cd glew-2.1.0
 INSTPATH=$BASEDIR/glew-2.1.0
 
 if [ $RUNNER_OS = "macOS" ]; then
-    CC="clang"
-    CFLAGS="-Wno-strict-prototypes -Wdeprecated-declarations"
+    CC="clang -Wno-strict-prototypes -Wdeprecated-declarations"
 elif [ $RUNNER_OS = "Linux" ]; then
     CC="gcc"
 else
@@ -31,7 +30,6 @@ fi
 
 make \
     CC="$CC" \
-    CFLAGS="$CFLAGS" \
     GLEW_PREFIX=$INSTPATH \
     GLEW_DEST=$INSTPATH \
     install
