@@ -36,3 +36,4 @@ cmake .. \
 make -j 8
 make install
 
+rm -rf $TMPDIR

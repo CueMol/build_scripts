@@ -33,3 +33,6 @@ link=shared threading=multi install
 # --exec-prefix=$instpath \
 # --libdir=$instpath \
 # --includedir=$instpath \
+
+# Clean-up
+rm -rf $TMPDIR

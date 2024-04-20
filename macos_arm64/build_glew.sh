@@ -33,3 +33,6 @@ make \
     GLEW_PREFIX=$INSTPATH \
     GLEW_DEST=$INSTPATH \
     install
+
+# Clean-up
+rm -rf $TMPDIR

@@ -22,3 +22,6 @@ INSTPATH=$BASEDIR/fftw-3.3.10
             --disable-fortran
 make -j 8
 make install
+
+# Clean-up
+rm -rf $TMPDIR

@@ -24,3 +24,6 @@ INSTPATH=$BASEDIR/lcms2-2.15
 
 make -j 8
 make install
+
+# Clean-up
+rm -rf $TMPDIR
