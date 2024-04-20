@@ -63,15 +63,16 @@ jobs:
     #     pwd
     #     ls -la $HOME/builds
 
-    # - name: Create deplibs tarball
-    #   shell: bash
-    #   env:
-    #     ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-    #   run: |
-    #     cd $HOME
-    #     tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
-    #     cd ${GITHUB_WORKSPACE}
-    #     ls -l ${{ env.ARTIFACT_NAME }}
+    - name: Create deplibs tarball
+      shell: bash
+      env:
+        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+      run: |
+        BASEDIR=${{ github.workspace }}/target
+        cd $BASEDIR/..
+        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
+        cd ${GITHUB_WORKSPACE}
+        ls -l ${{ env.ARTIFACT_NAME }}
 
     # - name: Upload artifact
     #   env:
@@ -83,25 +84,26 @@ jobs:
 
 ###############################################
 
-  # build_mac_intel:
-  #   name: "MacOS 12 intel clang"
-  #   runs-on: macos-12
-  #   steps:
+  build_mac_intel:
+    name: "MacOS 12 intel clang"
+    runs-on: macos-12
+    steps:
 
-  #   - name: Install prerequisites
-  #     run: |
-  #       brew install automake
-  #       # brew list
+    - name: Install prerequisites
+      run: |
+        brew install automake
+        # brew list
 
-  #   - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-  #   - name: Install glew
-  #     shell: bash
-  #     run: |
-  #       cd ${GITHUB_WORKSPACE}
-  #       bash macos_arm64/build_glew.sh $HOME
-  #       pwd
-  #       ls -la $HOME/builds
+    - name: Install glew
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
   #   - name: Install lcms2
   #     shell: bash
@@ -135,15 +137,16 @@ jobs:
   #       pwd
   #       ls -la $HOME/builds
 
-  #   - name: Create deplibs tarball
-  #     shell: bash
-  #     env:
-  #       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-  #     run: |
-  #       cd $HOME
-  #       tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
-  #       cd ${GITHUB_WORKSPACE}
-  #       ls -l ${{ env.ARTIFACT_NAME }}
+    - name: Create deplibs tarball
+      shell: bash
+      env:
+        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+      run: |
+        BASEDIR=${{ github.workspace }}/target
+        cd $BASEDIR/..
+        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
+        cd ${GITHUB_WORKSPACE}
+        ls -l ${{ env.ARTIFACT_NAME }}
 
   #   - name: Upload artifact
   #     env:
@@ -152,6 +155,29 @@ jobs:
   #     with:
   #       name: deplibs_macos_intel
   #       path: ${{ env.ARTIFACT_NAME }}
+
+###############################################
+
+jobs:
+  build_linux_x64:
+    name: "Ubuntu arm64 gcc"
+    runs-on: ubuntu-22.04
+    steps:
+
+    # - name: Install prerequisites
+    #   run: |
+    #     brew install automake
+
+    - uses: actions/checkout@v4
+
+    - name: Install glew
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
 ###############################################
 
