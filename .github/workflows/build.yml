@@ -31,13 +31,14 @@ jobs:
         pwd
         ls -la $BASEDIR
 
-    # - name: Install lcms2
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos_arm64/build_lcms2.sh $HOME
-    #     pwd
-    #     ls -la $HOME/builds
+    - name: Install lcms2
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
     # - name: Install fftw3
     #   shell: bash

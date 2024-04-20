@@ -2,8 +2,10 @@
 set -eux
 
 BASEDIR=$1
-TMPDIR=$BASEDIR/tmp
+RUNNER_OS=$2
+RUNNER_ARCH=$3
 
+TMPDIR=$BASEDIR/tmp
 mkdir -p $TMPDIR
 cd $TMPDIR
 
