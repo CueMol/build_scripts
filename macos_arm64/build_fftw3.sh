@@ -2,6 +2,7 @@
 set -eux
 
 BASEDIR=$1
+
 TMPDIR=$BASEDIR/tmp
 
 mkdir -p $TMPDIR
@@ -14,7 +15,7 @@ cd fftw-3.3.10
 
 #####
 
-INSTPATH=$BASEDIR/builds/fftw-3.3.10
+INSTPATH=$BASEDIR/fftw-3.3.10
 
 ./configure --prefix=$INSTPATH \
             --enable-float \

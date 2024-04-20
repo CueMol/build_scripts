@@ -40,13 +40,14 @@ jobs:
         pwd
         ls -la $BASEDIR
 
-    # - name: Install fftw3
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos_arm64/build_fftw3.sh $HOME
-    #     pwd
-    #     ls -la $HOME/builds
+    - name: Install fftw3
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $HOME/builds
 
     # - name: Install boost
     #   shell: bash
@@ -106,13 +107,14 @@ jobs:
         pwd
         ls -la $BASEDIR
 
-  #   - name: Install lcms2
-  #     shell: bash
-  #     run: |
-  #       cd ${GITHUB_WORKSPACE}
-  #       bash macos_arm64/build_lcms2.sh $HOME
-  #       pwd
-  #       ls -la $HOME/builds
+    - name: Install lcms2
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
   #   - name: Install fftw3
   #     shell: bash
@@ -164,9 +166,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
 
-    # - name: Install prerequisites
-    #   run: |
-    #     brew install automake
+    - name: Install prerequisites
+      run: |
+        sudo apt-get update
+        sudo apt-get install libgl-dev libglu1-mesa-dev xvfb mesa-utils
+        # libgles2-mesa-dev libegl1-mesa-dev
+
 
     - uses: actions/checkout@v4
 

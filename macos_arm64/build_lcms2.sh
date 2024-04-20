@@ -16,7 +16,7 @@ cd lcms2-2.15
 
 #####
 
-INSTPATH=$BASEDIR/builds/lcms2-2.15
+INSTPATH=$BASEDIR/lcms2-2.15
 
 ./configure \
     --prefix=$INSTPATH \
