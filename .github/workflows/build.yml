@@ -26,164 +26,165 @@ jobs:
       shell: bash
       run: |
         cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_glew.sh $HOME
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
         pwd
         ls -la $HOME/builds
 
-    - name: Install lcms2
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_lcms2.sh $HOME
-        pwd
-        ls -la $HOME/builds
+    # - name: Install lcms2
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_lcms2.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
 
-    - name: Install fftw3
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_fftw3.sh $HOME
-        pwd
-        ls -la $HOME/builds
+    # - name: Install fftw3
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_fftw3.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
 
-    - name: Install boost
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_boost.sh $HOME
-        pwd
-        ls -la $HOME/builds
+    # - name: Install boost
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_boost.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
 
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_cgal.sh $HOME
-        pwd
-        ls -la $HOME/builds
+    # - name: Install CGAL
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     bash macos_arm64/build_cgal.sh $HOME
+    #     pwd
+    #     ls -la $HOME/builds
 
-    - name: Create deplibs tarball
-      shell: bash
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      run: |
-        cd $HOME
-        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
-        cd ${GITHUB_WORKSPACE}
-        ls -l ${{ env.ARTIFACT_NAME }}
+    # - name: Create deplibs tarball
+    #   shell: bash
+    #   env:
+    #     ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+    #   run: |
+    #     cd $HOME
+    #     tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
+    #     cd ${GITHUB_WORKSPACE}
+    #     ls -l ${{ env.ARTIFACT_NAME }}
 
-    - name: Upload artifact
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      uses: actions/upload-artifact@v4
-      with:
-        name: deplibs_macos_arm64
-        path: ${{ env.ARTIFACT_NAME }}
+    # - name: Upload artifact
+    #   env:
+    #     ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: deplibs_macos_arm64
+    #     path: ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
-  build_mac_intel:
-    name: "MacOS 12 intel clang"
-    runs-on: macos-12
-    steps:
+  # build_mac_intel:
+  #   name: "MacOS 12 intel clang"
+  #   runs-on: macos-12
+  #   steps:
 
-    - name: Install prerequisites
-      run: |
-        brew install automake
-        # brew list
+  #   - name: Install prerequisites
+  #     run: |
+  #       brew install automake
+  #       # brew list
 
-    - uses: actions/checkout@v4
+  #   - uses: actions/checkout@v4
 
-    - name: Install glew
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_glew.sh $HOME
-        pwd
-        ls -la $HOME/builds
+  #   - name: Install glew
+  #     shell: bash
+  #     run: |
+  #       cd ${GITHUB_WORKSPACE}
+  #       bash macos_arm64/build_glew.sh $HOME
+  #       pwd
+  #       ls -la $HOME/builds
 
-    - name: Install lcms2
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_lcms2.sh $HOME
-        pwd
-        ls -la $HOME/builds
+  #   - name: Install lcms2
+  #     shell: bash
+  #     run: |
+  #       cd ${GITHUB_WORKSPACE}
+  #       bash macos_arm64/build_lcms2.sh $HOME
+  #       pwd
+  #       ls -la $HOME/builds
 
-    - name: Install fftw3
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_fftw3.sh $HOME
-        pwd
-        ls -la $HOME/builds
+  #   - name: Install fftw3
+  #     shell: bash
+  #     run: |
+  #       cd ${GITHUB_WORKSPACE}
+  #       bash macos_arm64/build_fftw3.sh $HOME
+  #       pwd
+  #       ls -la $HOME/builds
 
-    - name: Install boost
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_boost.sh $HOME
-        pwd
-        ls -la $HOME/builds
+  #   - name: Install boost
+  #     shell: bash
+  #     run: |
+  #       cd ${GITHUB_WORKSPACE}
+  #       bash macos_arm64/build_boost.sh $HOME
+  #       pwd
+  #       ls -la $HOME/builds
 
-    - name: Install CGAL
-      shell: bash
-      run: |
-        cd ${GITHUB_WORKSPACE}
-        bash macos_arm64/build_cgal.sh $HOME
-        pwd
-        ls -la $HOME/builds
+  #   - name: Install CGAL
+  #     shell: bash
+  #     run: |
+  #       cd ${GITHUB_WORKSPACE}
+  #       bash macos_arm64/build_cgal.sh $HOME
+  #       pwd
+  #       ls -la $HOME/builds
 
-    - name: Create deplibs tarball
-      shell: bash
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      run: |
-        cd $HOME
-        tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
-        cd ${GITHUB_WORKSPACE}
-        ls -l ${{ env.ARTIFACT_NAME }}
+  #   - name: Create deplibs tarball
+  #     shell: bash
+  #     env:
+  #       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+  #     run: |
+  #       cd $HOME
+  #       tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} builds
+  #       cd ${GITHUB_WORKSPACE}
+  #       ls -l ${{ env.ARTIFACT_NAME }}
 
-    - name: Upload artifact
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-      uses: actions/upload-artifact@v4
-      with:
-        name: deplibs_macos_intel
-        path: ${{ env.ARTIFACT_NAME }}
-
-###############################################
-
-  build_win_x64:
-    name: "Windows intel msvc"
-    runs-on: windows-2019
-    steps:
-
-    steps:
-    - name: Install prerequisite
-      run: |
-        choco install -r wget
-
-    - uses: actions/checkout@v4
-
-
+  #   - name: Upload artifact
+  #     env:
+  #       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: deplibs_macos_intel
+  #       path: ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
-  release_build:
-    needs: [build_mac_arm64,build_mac_intel]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download All Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: artifacts
-        merge-multiple: true
-    - run: |
-        ls -lR
+  # build_win_x64:
+  #   name: "Windows intel msvc"
+  #   runs-on: windows-2019
+  #   steps:
 
-    - name: Release
-      uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: artifacts/*.tar.bz2
+  #   steps:
+  #   - name: Install prerequisite
+  #     run: |
+  #       choco install -r wget
+
+  #   - uses: actions/checkout@v4
+
+
+
+###############################################
+
+  # release_build:
+  #   needs: [build_mac_arm64,build_mac_intel]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Download All Artifacts
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       path: artifacts
+  #       merge-multiple: true
+  #   - run: |
+  #       ls -lR
+
+  #   - name: Release
+  #     uses: softprops/action-gh-release@v2
+  #     if: startsWith(github.ref, 'refs/tags/')
+  #     with:
+  #       files: artifacts/*.tar.bz2
