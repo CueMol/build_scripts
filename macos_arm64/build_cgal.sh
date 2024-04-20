@@ -30,8 +30,9 @@ cmake .. \
       -DWITH_CGAL_Qt5=OFF \
       -DWITH_CGAL_ImageIO=OFF \
       -DCGAL_DISABLE_GMP=TRUE \
-      -DBUILD_SHARED_LIBS=FALSE \
-      -DCGAL_HEADER_ONLY=TRUE
+      -DBUILD_SHARED_LIBS=FALSE
+
+#      -DCGAL_HEADER_ONLY=TRUE
 
 make -j 8
 make install
