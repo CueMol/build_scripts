@@ -29,7 +29,7 @@ jobs:
         BASEDIR=${{ github.workspace }}/target
         bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
         pwd
-        ls -la $HOME/builds
+        ls -la $BASEDIR
 
     # - name: Install lcms2
     #   shell: bash
