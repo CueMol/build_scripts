@@ -22,33 +22,33 @@ runs:
       BASEDIR=${{ inputs.basedir }}
       bash macos_arm64/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Install lcms2
-  #   shell: bash
-  #   run: |
-  #     cd ${GITHUB_WORKSPACE}
-  #     BASEDIR=${{ inputs.basedir }}
-  #     bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  - name: Install lcms2
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Install fftw3
-  #   shell: bash
-  #   run: |
-  #     cd ${GITHUB_WORKSPACE}
-  #     BASEDIR=${{ inputs.basedir }}
-  #     bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  - name: Install fftw3
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Install boost
-  #   shell: bash
-  #   run: |
-  #     cd ${GITHUB_WORKSPACE}
-  #     BASEDIR=${{ inputs.basedir }}
-  #     bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  - name: Install boost
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Install CGAL
-  #   shell: bash
-  #   run: |
-  #     cd ${GITHUB_WORKSPACE}
-  #     BASEDIR=${{ inputs.basedir }}
-  #     bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  - name: Install CGAL
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
   - name: Create deplibs tarball
     id: create-artifact

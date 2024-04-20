@@ -28,37 +28,35 @@ jobs:
         basedir: ${{ github.workspace }}/target
 
     - name: Upload artifact
-      env:
-        ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
       uses: actions/upload-artifact@v4
       with:
-        name: deplibs_macos_arm64
-        path: ${{ env.ARTIFACT_NAME }}
+        name: deplibs_linux_x64
+        path: ${{ steps.build-artifact.outputs.artifact-path }}
 
 ###############################################
 
-  # build_mac_x64:
-  #   name: "MacOS 12 intel clang"
-  #   runs-on: macos-12
-  #   steps:
+  build_mac_x64:
+    name: "MacOS 12 intel clang"
+    runs-on: macos-12
+    steps:
 
-  #   - name: Install prerequisites
-  #     run: |
-  #       brew install automake
+    - name: Install prerequisites
+      run: |
+        brew install automake
 
-  #   - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-  #   - name: Build deplibs
-  #     id: build-artifact
-  #     uses: ./build_deplibs_posix
-  #     with:
-  #       basedir: ${{ github.workspace }}/target
+    - name: Build deplibs
+      id: build-artifact
+      uses: ./build_deplibs_posix
+      with:
+        basedir: ${{ github.workspace }}/target
 
-  #   - name: Upload artifact
-  #     uses: actions/upload-artifact@v4
-  #     with:
-  #       name: deplibs_macos_x64
-  #       path: ${{ steps.build-artifact.outputs.artifact-path }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deplibs_linux_x64
+        path: ${{ steps.build-artifact.outputs.artifact-path }}
 
 ###############################################
 
@@ -81,19 +79,11 @@ jobs:
       with:
         basedir: ${{ github.workspace }}/target
 
-    - name: Check built artifact
-      run: |
-        echo ${{ steps.build-artifact.outputs.artifact-path }}
-        ls -la ${{ steps.build-artifact.outputs.artifact-path }}
-
     - name: Upload artifact
-      # env:
-      #   ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
       uses: actions/upload-artifact@v4
       with:
         name: deplibs_linux_x64
         path: ${{ steps.build-artifact.outputs.artifact-path }}
-        # ${{ env.ARTIFACT_NAME }}
 
 ###############################################
 
