@@ -6,6 +6,11 @@ inputs:
      description: 'base dir'
      required: true
 
+outputs:
+  artifact-path:
+    description: 'built file'
+    value: ${{ steps.create-artifact.outputs.artifact-path }}
+
 runs:
   using: "composite"
   steps:
@@ -19,43 +24,44 @@ runs:
       pwd
       ls -la $BASEDIR
 
-  - name: Install lcms2
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-      pwd
-      ls -la $BASEDIR
+  # - name: Install lcms2
+  #   shell: bash
+  #   run: |
+  #     cd ${GITHUB_WORKSPACE}
+  #     BASEDIR=${{ inputs.basedir }}
+  #     bash macos_arm64/build_lcms2.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  #     pwd
+  #     ls -la $BASEDIR
 
-  - name: Install fftw3
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-      pwd
-      ls -la $BASEDIR
+  # - name: Install fftw3
+  #   shell: bash
+  #   run: |
+  #     cd ${GITHUB_WORKSPACE}
+  #     BASEDIR=${{ inputs.basedir }}
+  #     bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  #     pwd
+  #     ls -la $BASEDIR
 
-  - name: Install boost
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-      pwd
-      ls -la $BASEDIR
+  # - name: Install boost
+  #   shell: bash
+  #   run: |
+  #     cd ${GITHUB_WORKSPACE}
+  #     BASEDIR=${{ inputs.basedir }}
+  #     bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  #     pwd
+  #     ls -la $BASEDIR
 
-  - name: Install CGAL
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-      pwd
-      ls -la $BASEDIR
+  # - name: Install CGAL
+  #   shell: bash
+  #   run: |
+  #     cd ${GITHUB_WORKSPACE}
+  #     BASEDIR=${{ inputs.basedir }}
+  #     bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+  #     pwd
+  #     ls -la $BASEDIR
 
   - name: Create deplibs tarball
+    id: create-artifact
     shell: bash
     env:
       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
@@ -64,6 +70,7 @@ runs:
       # Clean-up
       rm -rf $BASEDIR/tmp
       cd $BASEDIR/..
-      tar cjf ${GITHUB_WORKSPACE}/${{ env.ARTIFACT_NAME }} target
+      tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
       cd ${GITHUB_WORKSPACE}
-      ls -lh ${{ env.ARTIFACT_NAME }}
+      ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
+      echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
