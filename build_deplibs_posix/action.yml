@@ -64,5 +64,4 @@ runs:
       tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
       cd ${GITHUB_WORKSPACE}
       ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
-      echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}"
       echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
