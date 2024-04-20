@@ -15,10 +15,10 @@ bash bootstrap.sh
 
 #####
 
-instpath=$BASEDIR/builds/boost_1_84
+INST_PATH=$BASEDIR/boost_1_84_0
 
 ./b2 \
- --prefix=$instpath \
+ --prefix=$INST_PATH \
  --with-date_time \
  --with-filesystem \
  --with-iostreams \

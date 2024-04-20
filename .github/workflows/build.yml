@@ -47,23 +47,25 @@ jobs:
         BASEDIR=${{ github.workspace }}/target
         bash macos_arm64/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
         pwd
-        ls -la $HOME/builds
+        ls -la $BASEDIR
 
-    # - name: Install boost
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos_arm64/build_boost.sh $HOME
-    #     pwd
-    #     ls -la $HOME/builds
+    - name: Install boost
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
-    # - name: Install CGAL
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     bash macos_arm64/build_cgal.sh $HOME
-    #     pwd
-    #     ls -la $HOME/builds
+    - name: Install CGAL
+      shell: bash
+      run: |
+        cd ${GITHUB_WORKSPACE}
+        BASEDIR=${{ github.workspace }}/target
+        bash macos_arm64/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+        pwd
+        ls -la $BASEDIR
 
     - name: Create deplibs tarball
       shell: bash

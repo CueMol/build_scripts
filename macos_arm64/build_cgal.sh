@@ -14,9 +14,11 @@ cd CGAL-4.14.3
 
 #####
 
-INSTPATH=$BASEDIR/builds/CGAL-4.14.3
+BOOST_DIR=$BASEDIR/boost_1_84_0
+INSTPATH=$BASEDIR/CGAL-4.14.3
 
-mkdir build && cd build
+mkdir -p build
+cd build
 
 cmake .. \
       -DCMAKE_INSTALL_PREFIX=$INSTPATH \
@@ -24,11 +26,12 @@ cmake .. \
       -DCMAKE_C_COMPILER=clang \
       -DCMAKE_CXX_COMPILER=clang++ \
       -DCMAKE_CXX_FLAGS="-std=c++14" \
-      -DBOOST_ROOT=$BASEDIR/builds/boost_1_84/ \
+      -DBOOST_ROOT=$BOOST_DIR \
       -DWITH_CGAL_Qt5=OFF \
       -DWITH_CGAL_ImageIO=OFF \
       -DCGAL_DISABLE_GMP=TRUE \
-      -DBUILD_SHARED_LIBS=FALSE
+      -DBUILD_SHARED_LIBS=FALSE \
+      -DCGAL_HEADER_ONLY=TRUE
 
 make -j 8
 make install
