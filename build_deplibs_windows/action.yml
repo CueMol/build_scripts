@@ -38,6 +38,12 @@ runs:
       REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build lcms2
+    shell: cmd
+    run: |
+      REM cd ${GITHUB_WORKSPACE}
+      build_deplibs_windows/build_lcms2.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
   - name: Build fftw
     shell: cmd
     run: |
