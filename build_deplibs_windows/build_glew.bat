@@ -23,7 +23,7 @@ REM /p:PlatformToolset=v143
 
 REM #####
 
-INSTPATH=%BASEDIR%\glew-2.2.0
+SET INSTPATH=%BASEDIR%\glew-2.2.0
 
 mkdir %INSTPATH%\lib
 copy lib\Release\x64\glew32s.lib $INSTPATH\lib\glew.lib
