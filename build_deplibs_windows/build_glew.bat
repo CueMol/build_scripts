@@ -1,3 +1,5 @@
+echo on
+
 if "%1"=="" (
    echo "arg1 not specified"
    exit /b   
@@ -30,8 +32,10 @@ rem REM /p:PlatformToolset=v143
 REM #####
 
 SET INSTPATH=%BASEDIR%\glew-2.2.0
+echo INSTPATH: %INSTPATH%
 
 mkdir %INSTPATH%\lib
+dir lib\Release\x64
 copy lib\Release\x64\glew32s.lib %INSTPATH%\lib\glew.lib
 
 mkdir %INSTPATH%\include\GL
