@@ -32,6 +32,12 @@ runs:
       REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build lzma
+    shell: cmd
+    run: |
+      REM cd ${GITHUB_WORKSPACE}
+      build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
   - name: Build fftw
     shell: cmd
     run: |
