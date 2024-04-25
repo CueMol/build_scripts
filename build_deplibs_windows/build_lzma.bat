@@ -15,8 +15,8 @@ cd %TMPDIR%
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
-     https://github.com/tukaani-project/xz/releases/download/v5.2.12/xz-5.2.12.tar.xz
-tar xJvf xz-5.2.12.tar.xz
+     https://github.com/tukaani-project/xz/releases/download/v5.2.12/xz-5.2.12.tar.gz
+tar xzf xz-5.2.12.tar.gz
 cd xz-5.2.12
 
 REM Build
