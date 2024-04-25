@@ -32,3 +32,9 @@ runs:
       REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build fftw
+    shell: cmd
+    run: |
+      REM cd ${GITHUB_WORKSPACE}
+      build_deplibs_windows/build_fftw.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+

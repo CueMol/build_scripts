@@ -1,5 +1,6 @@
 echo on
 
+REM Common Setup
 if "%1"=="" (
    echo "arg1 not specified"
    exit /b   
