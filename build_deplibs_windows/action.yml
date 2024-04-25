@@ -52,16 +52,13 @@ runs:
 
   - name: Create deplibs tarball
     id: create-artifact
-    shell: bash
+    shell: cmd
     env:
       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
     run: |
-      set -eux
-      BASEDIR=${{ inputs.basedir }}
-      # Clean-up
-      rm -rf $BASEDIR/tmp
-      cd $BASEDIR/..
-      tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
-      cd ${GITHUB_WORKSPACE}
-      ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
-      echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
+      SET BASEDIR=${{ inputs.basedir }}
+      rd /s /q %BASEDIR%\tmp
+      cd %BASEDIR%\..
+      tar cjf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
+      dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
+      echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
