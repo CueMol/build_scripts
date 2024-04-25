@@ -1,0 +1,23 @@
+name: 'Build deplibs windows'
+description: 'Build deplibs windows'
+
+inputs:
+  basedir:
+     description: 'base dir'
+     required: true
+
+# outputs:
+#   artifact-path:
+#     description: 'built file'
+#     value: ${{ steps.create-artifact.outputs.artifact-path }}
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: Build glew
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_windows/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}

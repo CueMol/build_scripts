@@ -10,19 +10,34 @@ jobs:
     name: "Windows intel msvc"
     runs-on: windows-2019
 
-    steps:
-    - name: Install prerequisite
-      run: |
-        choco install -r wget
+    # steps:
+    # - name: Install prerequisite
+    #   run: |
+    #     choco install -r wget
 
     - uses: actions/checkout@v4
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Install glew
-      shell: cmd
-      run: |
-        cd %GITHUB_WORKSPACE%
-        .\win_x64\build_glew.bat %HOME%
-        dir %HOME%\builds
+    - name: Build deplibs
+      id: build-artifact
+      uses: ./build_deplibs_windows
+      with:
+        basedir: ${{ github.workspace }}/target
+
+
+    # - name: Install glew
+    #   shell: cmd
+    #   run: |
+    #     cd %GITHUB_WORKSPACE%
+    #     .\win_x64\build_glew.bat %HOME%
+    #     dir %HOME%\builds
+
+    # - name: Build CGAL
+    #   shell: bash
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}
+    #     ./win_x64/build_cgal.sh %HOME%
+    #     dir %HOME%\builds
+        
