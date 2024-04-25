@@ -63,3 +63,9 @@ runs:
       tar czvf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
       dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
       echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
+
+  - name: Check output
+    shell: cmd
+    run: |
+      ECHO ON
+      echo ${{ steps.create-artifact.outputs.artifact-path }}
