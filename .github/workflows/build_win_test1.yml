@@ -12,9 +12,9 @@ jobs:
 
     steps:
 
-    # - name: Install prerequisite
-    #   run: |
-    #     choco install -r wget
+    - name: Install prerequisite
+      run: |
+        choco install -r wget
 
     - uses: actions/checkout@v4
 
