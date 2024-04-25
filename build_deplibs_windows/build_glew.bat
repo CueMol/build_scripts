@@ -18,7 +18,8 @@ cd glew-2.2.0
 
 dir
 
-msbuild build/vc14/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+msbuild build/vc14/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
+REM /p:PlatformToolset=v143
 
 REM #####
 

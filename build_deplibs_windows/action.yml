@@ -21,4 +21,3 @@ runs:
       REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-      
