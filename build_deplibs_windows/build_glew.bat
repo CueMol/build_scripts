@@ -10,16 +10,22 @@ SET TMPDIR=%BASEDIR%\tmp
 mkdir %TMPDIR%
 cd %TMPDIR%
 
-REM Get source
+rem REM Get source
+rem wget --content-disposition -c --progress=dot:mega ^
+rem      https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.tgz
+rem tar xzf glew-2.2.0.tgz
+rem cd glew-2.2.0
+
+REM Get binary
 wget --content-disposition -c --progress=dot:mega ^
-     https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.tgz
-tar xzf glew-2.2.0.tgz
+     https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
+unzip glew-2.2.0-win32.zip
 cd glew-2.2.0
 
 dir
 
-msbuild build/vc15/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
-REM /p:PlatformToolset=v143
+rem msbuild build/vc15/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
+rem REM /p:PlatformToolset=v143
 
 REM #####
 
