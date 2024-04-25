@@ -8,7 +8,7 @@ on:
 jobs:
   build_win_x64:
     name: "Windows intel msvc"
-    runs-on: windows-2019
+    runs-on: windows-2022
 
     steps:
 
@@ -30,7 +30,7 @@ jobs:
       id: build-artifact
       uses: ./build_deplibs_windows
       with:
-        basedir: ${{ github.workspace }}/target
+        basedir: ${{ github.workspace }}\target
 
 
     # - name: Install glew
