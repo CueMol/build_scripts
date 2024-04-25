@@ -16,8 +16,7 @@ runs:
   steps:
 
   - name: Build glew
-    shell: bash
+    shell: cmd
     run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash build_deplibs_windows/build_glew.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+      REM cd ${GITHUB_WORKSPACE}
+      build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
