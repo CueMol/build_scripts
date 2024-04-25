@@ -15,16 +15,16 @@ runs:
   using: "composite"
   steps:
 
-  - name: Install MSVC 2015 (v140) and Windows 8.1 SDK
-    shell: powershell
-    run: |
-      $VS_BTOOLS_EXE="vs_buildtools.exe"
-      $VS_BTOOLS_URI="https://aka.ms/vs/15/release/vs_buildtools.exe"
-      Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
-      Start-Process -FilePath ./vs_BuildTools.exe -ArgumentList `
-      "--add", "Microsoft.VisualStudio.Component.VC.140", `
-      "--add", "Microsoft.VisualStudio.Component.Windows81SDK", `
-      "--quiet", "--norestart", "--force", "--wait" -Wait -PassThru
+  # - name: Install MSVC 2015 (v140) and Windows 8.1 SDK
+  #   shell: powershell
+  #   run: |
+  #     $VS_BTOOLS_EXE="vs_buildtools.exe"
+  #     $VS_BTOOLS_URI="https://aka.ms/vs/15/release/vs_buildtools.exe"
+  #     Invoke-WebRequest -Uri $VS_BTOOLS_URI -OutFile $VS_BTOOLS_EXE
+  #     Start-Process -FilePath ./vs_BuildTools.exe -ArgumentList `
+  #     "--add", "Microsoft.VisualStudio.Component.VC.140", `
+  #     "--add", "Microsoft.VisualStudio.Component.Windows81SDK", `
+  #     "--quiet", "--norestart", "--force", "--wait" -Wait -PassThru
 
   - name: Build glew
     shell: cmd

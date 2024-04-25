@@ -18,7 +18,7 @@ cd glew-2.2.0
 
 dir
 
-msbuild build/vc14/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
+msbuild build/vc15/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
 REM /p:PlatformToolset=v143
 
 REM #####
@@ -26,10 +26,10 @@ REM #####
 SET INSTPATH=%BASEDIR%\glew-2.2.0
 
 mkdir %INSTPATH%\lib
-copy lib\Release\x64\glew32s.lib $INSTPATH\lib\glew.lib
+copy lib\Release\x64\glew32s.lib %INSTPATH%\lib\glew.lib
 
 mkdir %INSTPATH%\include\GL
-copy include\GL\*.h $INSTPATH\include\GL\
+copy include\GL\*.h %INSTPATH%\include\GL\
 
 REM Cleanup
 cd %BASEDIR%
