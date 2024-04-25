@@ -10,7 +10,8 @@ jobs:
     name: "Windows intel msvc"
     runs-on: windows-2019
 
-    # steps:
+    steps:
+
     # - name: Install prerequisite
     #   run: |
     #     choco install -r wget
