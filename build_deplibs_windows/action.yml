@@ -64,8 +64,8 @@ runs:
       dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
       echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
 
-  - name: Check output
-    shell: cmd
-    run: |
-      ECHO ON
-      echo ${{ steps.create-artifact.outputs.artifact-path }}
+  # - name: Check output
+  #   shell: cmd
+  #   run: |
+  #     ECHO ON
+  #     echo ${{ steps.create-artifact.outputs.artifact-path }}
