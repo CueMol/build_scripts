@@ -22,9 +22,6 @@ jobs:
     #   uses: microsoft/setup-msbuild@v1.0.2
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-      # with:
-      #   vs-version: '14.0'
-
 
     - name: Build deplibs
       id: build-artifact
@@ -32,18 +29,9 @@ jobs:
       with:
         basedir: ${{ github.workspace }}\target
 
-
-    # - name: Install glew
-    #   shell: cmd
-    #   run: |
-    #     cd %GITHUB_WORKSPACE%
-    #     .\win_x64\build_glew.bat %HOME%
-    #     dir %HOME%\builds
-
-    # - name: Build CGAL
-    #   shell: bash
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}
-    #     ./win_x64/build_cgal.sh %HOME%
-    #     dir %HOME%\builds
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deplibs_windows_x64
+        path: ${{ steps.build-artifact.outputs.artifact-path }}
         

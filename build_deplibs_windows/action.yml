@@ -6,10 +6,10 @@ inputs:
      description: 'base dir'
      required: true
 
-# outputs:
-#   artifact-path:
-#     description: 'built file'
-#     value: ${{ steps.create-artifact.outputs.artifact-path }}
+outputs:
+  artifact-path:
+    description: 'built file'
+    value: ${{ steps.create-artifact.outputs.artifact-path }}
 
 runs:
   using: "composite"
@@ -32,21 +32,36 @@ runs:
       REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  - name: Build lcms2
-    shell: cmd
-    run: |
-      REM cd ${GITHUB_WORKSPACE}
-      build_deplibs_windows/build_lcms2.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  # - name: Build lcms2
+  #   shell: cmd
+  #   run: |
+  #     REM cd ${GITHUB_WORKSPACE}
+  #     build_deplibs_windows/build_lcms2.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  - name: Build fftw
-    shell: cmd
-    run: |
-      REM cd ${GITHUB_WORKSPACE}
-      build_deplibs_windows/build_fftw.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  # - name: Build fftw
+  #   shell: cmd
+  #   run: |
+  #     REM cd ${GITHUB_WORKSPACE}
+  #     build_deplibs_windows/build_fftw.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  - name: Build lzma
-    shell: cmd
-    run: |
-      REM cd ${GITHUB_WORKSPACE}
-      build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  # - name: Build lzma
+  #   shell: cmd
+  #   run: |
+  #     REM cd ${GITHUB_WORKSPACE}
+  #     build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Create deplibs tarball
+    id: create-artifact
+    shell: bash
+    env:
+      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+    run: |
+      set -eux
+      BASEDIR=${{ inputs.basedir }}
+      # Clean-up
+      rm -rf $BASEDIR/tmp
+      cd $BASEDIR/..
+      tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
+      cd ${GITHUB_WORKSPACE}
+      ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
+      echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
