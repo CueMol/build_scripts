@@ -54,12 +54,12 @@ runs:
     id: create-artifact
     shell: cmd
     env:
-      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.gz
     run: |
       ECHO ON
       SET BASEDIR=${{ inputs.basedir }}
       rd /s /q %BASEDIR%\tmp
       cd %BASEDIR%\..
-      tar cjf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
+      tar czvf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
       dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
       echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
