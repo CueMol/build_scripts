@@ -56,6 +56,7 @@ runs:
     env:
       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
     run: |
+      ECHO ON
       SET BASEDIR=${{ inputs.basedir }}
       rd /s /q %BASEDIR%\tmp
       cd %BASEDIR%\..
