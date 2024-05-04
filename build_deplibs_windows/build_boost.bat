@@ -13,19 +13,22 @@ SET TMPDIR=%BASEDIR%\tmp
 mkdir %TMPDIR%
 cd %TMPDIR%
 
+SET BOOST_VER=boost_1_84_0
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
+     -O %BOOST_VER%.tar.bz2 ^
      https://sourceforge.net/projects/boost/files/boost/1.84.0/boost_1_84_0.tar.bz2/download
-REM https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2
+REM     https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2
 
-tar xjf boost_1_84_0.tar.bz2
-cd boost_1_84_0
-dir
+rd /s /q %BOOST_VER%
+tar xjf %BOOST_VER%.tar.bz2
+cd %BOOST_VER%
 
 SET INST_PATH=%BASEDIR%\boost_1_84_0
 
-bootstrap.bat
-b2.exe ^
+cmd /c bootstrap.bat
+
+b2 ^
  --prefix=%INST_PATH% ^
  --with-date_time ^
  --with-filesystem ^
@@ -36,4 +39,10 @@ b2.exe ^
  --with-timer ^
  -d0 ^
  link=shared threading=multi toolset=msvc address-model=64 install
+
+dir %INST_PATH%
+
+REM Cleanup
+cd %BASEDIR%
+rd /s /q %TMPDIR%
 
