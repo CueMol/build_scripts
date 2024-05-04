@@ -13,9 +13,11 @@ SET TMPDIR=%BASEDIR%\tmp
 mkdir %TMPDIR%
 cd %TMPDIR%
 
-REM Get binary
+REM Get source
 wget --content-disposition -c --progress=dot:mega ^
-     https://boost.teeks99.com/bin/1.84.0/boost_1_84_0-msvc-14.3-64.exe
+     https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2
 
-boost_1_84_0-msvc-14.3-64.exe /?
+tar xjf boost_1_84_0.tar.bz2
+cd boost_1_84_0
+dir
 
