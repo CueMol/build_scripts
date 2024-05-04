@@ -26,11 +26,17 @@ runs:
   #     "--add", "Microsoft.VisualStudio.Component.Windows81SDK", `
   #     "--quiet", "--norestart", "--force", "--wait" -Wait -PassThru
 
-  - name: Build glew
+  - name: Build boost
     shell: cmd
     run: |
       REM cd ${GITHUB_WORKSPACE}
-      build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+      build_deplibs_windows/build_boost.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
+  # - name: Build glew
+  #   shell: cmd
+  #   run: |
+  #     REM cd ${GITHUB_WORKSPACE}
+  #     build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
   # - name: Build lcms2
   #   shell: cmd

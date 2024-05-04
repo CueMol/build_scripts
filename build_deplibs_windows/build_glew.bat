@@ -19,6 +19,9 @@ rem      https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.
 rem tar xzf glew-2.2.0.tgz
 rem cd glew-2.2.0
 
+rem msbuild build/vc15/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
+rem REM /p:PlatformToolset=v143
+
 REM Get binary
 wget --content-disposition -c --progress=dot:mega ^
      https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip
@@ -26,9 +29,6 @@ unzip glew-2.2.0-win32.zip
 cd glew-2.2.0
 
 dir
-
-rem msbuild build/vc15/glew_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
-rem REM /p:PlatformToolset=v143
 
 REM #####
 
