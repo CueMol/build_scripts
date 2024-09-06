@@ -23,7 +23,7 @@ cd lcms2-${LCMS2_VER}
 LCMS2_INSTPATH=$BASEDIR/lcms2-${LCMS2_VER}
 
 if [ $RUNNER_OS = "macOS" ]; then
-    ###
+    echo "runner os: $RUNNER_OS"
 elif [ $RUNNER_OS = "Linux" ]; then
     export CFLAGS="-fPIC"
     export CXXFLAGS="-fPIC"
