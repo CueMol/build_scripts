@@ -10,14 +10,16 @@ mkdir -p $TMPDIR
 cd $TMPDIR
 
 # get source
-wget --content-disposition \
-     https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0.tgz/download
-tar xzf glew-2.1.0.tgz
-cd glew-2.1.0
+GLEW_VER=2.1.0
+GLEW_URL=https://sourceforge.net/projects/glew/files/glew/${GLEW_VER}/glew-${GLEW_VER}.tgz/download
+wget --content-disposition -O glew-${GLEW_VER}.tgz $GLEW_URL
+     
+tar xzf glew-${GLEW_VER}.tgz
+cd glew-${GLEW_VER}
 
 #####
 
-INSTPATH=$BASEDIR/glew-2.1.0
+GLEW_INSTPATH=$BASEDIR/glew-${GLEW_VER}
 
 if [ $RUNNER_OS = "macOS" ]; then
     CC="clang -Wno-strict-prototypes -Wdeprecated-declarations"
@@ -30,8 +32,8 @@ fi
 
 make \
     CC="$CC" \
-    GLEW_PREFIX=$INSTPATH \
-    GLEW_DEST=$INSTPATH \
+    GLEW_PREFIX=$GLEW_INSTPATH \
+    GLEW_DEST=$GLEW_INSTPATH \
     install
 
 # Clean-up
