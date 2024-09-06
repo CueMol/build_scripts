@@ -22,7 +22,7 @@ cd fftw-3.3.10
 INSTPATH=$BASEDIR/fftw-3.3.10
 
 if [ $RUNNER_OS = "macOS" ]; then
-    ###
+    echo "runner os: $RUNNER_OS"
 elif [ $RUNNER_OS = "Linux" ]; then
     export CFLAGS="-fPIC"
     export CXXFLAGS="-fPIC"
