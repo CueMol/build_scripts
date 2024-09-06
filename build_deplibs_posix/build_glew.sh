@@ -24,7 +24,7 @@ GLEW_INSTPATH=$BASEDIR/glew-${GLEW_VER}
 if [ $RUNNER_OS = "macOS" ]; then
     CC="clang -Wno-strict-prototypes -Wdeprecated-declarations"
 elif [ $RUNNER_OS = "Linux" ]; then
-    CC="gcc"
+    CC="gcc -fPIC"
 else
     echo "unknown runner os: $RUNNER_OS"
     exit 1

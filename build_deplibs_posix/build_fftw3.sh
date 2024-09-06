@@ -2,6 +2,10 @@
 set -eux
 
 BASEDIR=$1
+RUNNER_OS=$2
+RUNNER_ARCH=$3
+
+#####
 
 TMPDIR=$BASEDIR/tmp
 
@@ -16,6 +20,16 @@ cd fftw-3.3.10
 #####
 
 INSTPATH=$BASEDIR/fftw-3.3.10
+
+if [ $RUNNER_OS = "macOS" ]; then
+    ###
+elif [ $RUNNER_OS = "Linux" ]; then
+    export CFLAGS="-fPIC"
+    export CXXFLAGS="-fPIC"
+else
+    echo "unknown runner os: $RUNNER_OS"
+    exit 1
+fi
 
 ./configure --prefix=$INSTPATH \
             --enable-float \
