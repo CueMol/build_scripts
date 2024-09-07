@@ -13,13 +13,15 @@ mkdir -p $TMPDIR
 cd $TMPDIR
 
 # get source
-wget --progress=dot:mega https://www.fftw.org/fftw-3.3.10.tar.gz
-tar xzf fftw-3.3.10.tar.gz
-cd fftw-3.3.10
+FFTW_VER=3.3.10
+FFTW_URL=https://www.fftw.org/fftw-${FFTW_VER}.tar.gz
+wget --progress=dot:mega $FFTW_URL
+tar xzf fftw-${FFTW_VER}.tar.gz
+cd fftw-${FFTW_VER}
 
 #####
 
-INSTPATH=$BASEDIR/fftw-3.3.10
+FFTW_INSTPATH=$BASEDIR/fftw-${FFTW_VER}
 
 if [ $RUNNER_OS = "macOS" ]; then
     echo "runner os: $RUNNER_OS"
@@ -31,7 +33,7 @@ else
     exit 1
 fi
 
-./configure --prefix=$INSTPATH \
+./configure --prefix=$FFTW_INSTPATH \
             --enable-float \
             --disable-fortran
 make -j 8
