@@ -16,7 +16,7 @@ cd $TMPDIR
 
 # get source
 CGAL_URL=https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-${CGAL_VER}/CGAL-${CGAL_VER}.tar.xz
-wget --progress=dot:mega 
+wget --progress=dot:mega $CGAL_URL
 tar xJf CGAL-${CGAL_VER}.tar.xz
 cd CGAL-${CGAL_VER}
 
