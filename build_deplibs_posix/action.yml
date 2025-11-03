@@ -15,6 +15,20 @@ runs:
   using: "composite"
   steps:
 
+  - name: Install boost
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_posix/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+
+  - name: Install CGAL
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_posix/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+
   - name: Install glew
     shell: bash
     run: |
@@ -35,20 +49,6 @@ runs:
       cd ${GITHUB_WORKSPACE}
       BASEDIR=${{ inputs.basedir }}
       bash build_deplibs_posix/build_fftw3.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-
-  - name: Install boost
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash build_deplibs_posix/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
-
-  - name: Install CGAL
-    shell: bash
-    run: |
-      cd ${GITHUB_WORKSPACE}
-      BASEDIR=${{ inputs.basedir }}
-      bash build_deplibs_posix/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
   - name: Create deplibs tarball
     id: create-artifact
