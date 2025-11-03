@@ -38,6 +38,7 @@ else
 fi
 
 cmake .. \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -DCMAKE_INSTALL_PREFIX=$CGAL_INSTPATH \
       -DCMAKE_BUILD_TYPE="Release" \
       ${OPTIONS} \
@@ -45,7 +46,7 @@ cmake .. \
       -DWITH_CGAL_Qt5=OFF \
       -DWITH_CGAL_ImageIO=OFF \
       -DCGAL_DISABLE_GMP=TRUE \
-      -DBUILD_SHARED_LIBS=FALSE
+      -DBUILD_SHARED_LIBS=FALSE \
 
 #      -DCGAL_HEADER_ONLY=TRUE
 
