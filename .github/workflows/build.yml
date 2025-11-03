@@ -14,8 +14,10 @@ on:
 
 jobs:
   build_mac_arm64:
-    name: "MacOS 14 arm64 clang"
-    runs-on: macos-14
+    # name: "MacOS 14 arm64 clang"
+    # runs-on: macos-14
+    name: "MacOS 15 arm64 clang"
+    runs-on: macos-15
 
     env:
       MACOSX_DEPLOYMENT_TARGET: "10.15"
@@ -42,8 +44,10 @@ jobs:
 ###############################################
 
   build_mac_x64:
-    name: "MacOS 12 intel clang"
-    runs-on: macos-12
+    # name: "MacOS 12 intel clang"
+    # runs-on: macos-12
+    name: "MacOS 15 intel clang"
+    runs-on: macos-15-intel
     env:
       MACOSX_DEPLOYMENT_TARGET: "10.15"
 
