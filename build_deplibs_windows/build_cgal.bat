@@ -20,7 +20,9 @@ wget --content-disposition -c --progress=dot:mega ^
 
 REM     https://github.com/CGAL/cgal/releases/download/releases%%2F%CGAL_VER%/%CGAL_VER%.tar.xz
 
-tar xJf CGAL-%CGAL_VER%.tar.xz
+REM tar xJf CGAL-%CGAL_VER%.tar.xz
+7z x CGAL-%CGAL_VER%.tar.xz -so | 7z x -si -ttar
+
 cd CGAL-%CGAL_VER%
 
 SET DEPLIBS_DIR=%BASEDIR%
