@@ -50,7 +50,6 @@ runs:
     shell: bash
     env:
       ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
-#      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.gz
     run: |
       set -eux
       BASEDIR="${{ inputs.basedir }}"
@@ -63,16 +62,8 @@ runs:
       ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
       echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
 
+#  - name: Check output
+#    shell: cmd
+#    run: |
 #      ECHO ON
-#      SET BASEDIR=${{ inputs.basedir }}
-#      rd /s /q %BASEDIR%\tmp
-#      cd %BASEDIR%\..
-#      tar cjf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
-#      dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
-#      echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
-
-  - name: Check output
-    shell: cmd
-    run: |
-      ECHO ON
-      echo ${{ steps.create-artifact.outputs.artifact-path }}
+#      echo ${{ steps.create-artifact.outputs.artifact-path }}
