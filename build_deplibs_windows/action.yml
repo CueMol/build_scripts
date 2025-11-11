@@ -54,12 +54,12 @@ runs:
       set -eux
       BASEDIR="${{ inputs.basedir }}"
       BASEDIR=$(cygpath -u "$BASEDIR")
-      GITHUB_WORKSPACE=$(cygpath -u "$GITHUB_WORKSPACE")
+      B_GITHUB_WORKSPACE=$(cygpath -u "$GITHUB_WORKSPACE")
       rm -rf $BASEDIR/tmp
       cd $BASEDIR/..
-      tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
-      cd ${GITHUB_WORKSPACE}
-      ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
+      tar cjf ${B_GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
+      cd ${B_GITHUB_WORKSPACE}
+      ls -lh ${B_GITHUB_WORKSPACE}/${ARTIFACT_NAME}
       echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
 
 #  - name: Check output
