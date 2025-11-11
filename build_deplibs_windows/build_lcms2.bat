@@ -26,7 +26,7 @@ REM Build
 SET INSTPATH=%BASEDIR%\lcms2-%LCMS2_VER%
 echo INSTPATH: %INSTPATH%
 
-msbuild Projects\VC2022\lcms2_static\lcms2_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64
+msbuild Projects\VC2022\lcms2_static\lcms2_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64 /p:WholeProgramOptimization=false
 
 md %INSTPATH%\lib\
 copy Lib\MS\lcms2_static.lib %INSTPATH%\lib\lcms2.lib
