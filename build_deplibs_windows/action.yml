@@ -55,7 +55,7 @@ runs:
       set -eux
       BASEDIR="${{ inputs.basedir }}"
       BASEDIR=$(cygpath -u "$BASEDIR")
-      # Clean-up
+      GITHUB_WORKSPACE=$(cygpath -u "$GITHUB_WORKSPACE")
       rm -rf $BASEDIR/tmp
       cd $BASEDIR/..
       tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
