@@ -31,6 +31,11 @@ runs:
     run: |
       build_deplibs_windows/build_boost.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build CGAL
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_cgal.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
   - name: Build glew
     shell: cmd
     run: |
@@ -53,17 +58,28 @@ runs:
 
   - name: Create deplibs tarball
     id: create-artifact
-    shell: cmd
+    shell: bash
     env:
-      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.gz
+      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+#      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.gz
     run: |
-      ECHO ON
-      SET BASEDIR=${{ inputs.basedir }}
-      rd /s /q %BASEDIR%\tmp
-      cd %BASEDIR%\..
-      tar czvf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
-      dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
-      echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
+      set -eux
+      BASEDIR=${{ inputs.basedir }}
+      # Clean-up
+      rm -rf $BASEDIR/tmp
+      cd $BASEDIR/..
+      tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
+      cd ${GITHUB_WORKSPACE}
+      ls -lh ${GITHUB_WORKSPACE}/${ARTIFACT_NAME}
+      echo "artifact-path=${GITHUB_WORKSPACE}/${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
+
+#      ECHO ON
+#      SET BASEDIR=${{ inputs.basedir }}
+#      rd /s /q %BASEDIR%\tmp
+#      cd %BASEDIR%\..
+#      tar cjf %GITHUB_WORKSPACE%\%ARTIFACT_NAME% target
+#      dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
+#      echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
 
   - name: Check output
     shell: cmd

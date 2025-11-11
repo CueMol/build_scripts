@@ -35,6 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: deplibs_windows_x64
-        path: ${{ github.workspace }}\deplibs_${{ runner.os }}_${{ runner.arch }}.tar.gz
+        path: ${{ github.workspace }}\deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
         # path: ${{ steps.build-artifact.outputs.artifact-path }}
         
