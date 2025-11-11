@@ -13,14 +13,16 @@ SET TMPDIR=%BASEDIR%\tmp
 mkdir %TMPDIR%
 cd %TMPDIR%
 
+SET LCMS2_VER=2.16
+
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
-     https://github.com/mm2/Little-CMS/releases/download/lcms2.16/lcms2-2.16.tar.gz
-tar xzf lcms2-2.16.tar.gz
-cd lcms2-2.16
+     https://github.com/mm2/Little-CMS/releases/download/lcms%LCMS2_VER%/lcms2-%LCMS2_VER%.tar.gz
+tar xzf lcms2-%LCMS2_VER%.tar.gz
+cd lcms2-%LCMS2_VER%
 
 REM Build
-SET INSTPATH=%BASEDIR%\lcms2-2.16
+SET INSTPATH=%BASEDIR%\lcms2-%LCMS2_VER%
 echo INSTPATH: %INSTPATH%
 
 msbuild Projects\VC2022\lcms2_static\lcms2_static.vcxproj /t:rebuild /p:Configuration=Release /p:Platform=x64

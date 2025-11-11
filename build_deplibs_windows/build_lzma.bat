@@ -10,17 +10,19 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
+SET LZMA_VER=5.2.12
+
 mkdir %TMPDIR%
 cd %TMPDIR%
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
-     https://github.com/tukaani-project/xz/releases/download/v5.2.12/xz-5.2.12.tar.gz
-tar xzf xz-5.2.12.tar.gz
-cd xz-5.2.12
+     https://github.com/tukaani-project/xz/releases/download/v%LZMA_VER%/xz-%LZMA_VER%.tar.gz
+tar xzf xz-%LZMA_VER%.tar.gz
+cd xz-%LZMA_VER%
 
 REM Build
-SET INSTPATH=%BASEDIR%\xz-5.2.12
+SET INSTPATH=%BASEDIR%\xz-%LZMA_VER%
 echo INSTPATH: %INSTPATH%
 
 rd /s /q build

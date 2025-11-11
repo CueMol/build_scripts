@@ -10,7 +10,9 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
-SET INSTPATH=%BASEDIR%\fftw-3.3.10
+SET FFTW_VER=3.3.10
+
+SET INSTPATH=%BASEDIR%\fftw-%FFTW_VER%
 echo INSTPATH: %INSTPATH%
 
 mkdir %TMPDIR%
@@ -18,9 +20,9 @@ cd %TMPDIR%
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
-     https://www.fftw.org/fftw-3.3.10.tar.gz
-tar xzf fftw-3.3.10.tar.gz
-cd fftw-3.3.10
+     https://www.fftw.org/fftw-%FFTW_VER%.tar.gz
+tar xzf fftw-%FFTW_VER%.tar.gz
+cd fftw-%FFTW_VER%
 
 REM Build
 rd /s /q build
