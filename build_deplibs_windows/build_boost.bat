@@ -14,17 +14,20 @@ mkdir %TMPDIR%
 cd %TMPDIR%
 
 SET BOOST_VER=boost_1_84_0
+SET BOOST_VER=1_84_0
+SET SRC_FILE=boost_%BOOST_VER%
+SET SRC_URL=https://archives.boost.io/release/1.84.0/source/%SRC_FILE%.tar.bz2
+
 REM Get source
-wget --content-disposition -c --progress=dot:mega ^
-     -O %BOOST_VER%.tar.bz2 ^
-     https://sourceforge.net/projects/boost/files/boost/1.84.0/boost_1_84_0.tar.bz2/download
+wget --content-disposition -c --progress=dot:mega -O %SRC_FILE%.tar.bz2 %SRC_URL%
+REM     https://sourceforge.net/projects/boost/files/boost/1.84.0/boost_1_84_0.tar.bz2/download
 REM     https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2
 
-rd /s /q %BOOST_VER%
-tar xjf %BOOST_VER%.tar.bz2
-cd %BOOST_VER%
+rd /s /q %SRC_FILE%
+tar xjf %SRC_FILE%.tar.bz2
+cd %SRC_FILE%
 
-SET INST_PATH=%BASEDIR%\boost_1_84_0
+SET INST_PATH=%BASEDIR%\%SRC_FILE%
 
 cmd /c bootstrap.bat
 
