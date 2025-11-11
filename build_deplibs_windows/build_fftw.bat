@@ -21,7 +21,8 @@ cd %TMPDIR%
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
      https://www.fftw.org/fftw-%FFTW_VER%.tar.gz
-tar xzf fftw-%FFTW_VER%.tar.gz
+REM tar xzf fftw-%FFTW_VER%.tar.gz
+7z x fftw-%FFTW_VER%.tar.gz -so | 7z x -si -ttar
 cd fftw-%FFTW_VER%
 
 REM Build

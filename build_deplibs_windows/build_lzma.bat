@@ -18,7 +18,8 @@ cd %TMPDIR%
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
      https://github.com/tukaani-project/xz/releases/download/v%LZMA_VER%/xz-%LZMA_VER%.tar.gz
-tar xzf xz-%LZMA_VER%.tar.gz
+REM tar xzf xz-%LZMA_VER%.tar.gz
+7z x xz-%LZMA_VER%.tar.gz -so | 7z x -si -ttar
 cd xz-%LZMA_VER%
 
 REM Build

@@ -13,12 +13,13 @@ SET TMPDIR=%BASEDIR%\tmp
 mkdir %TMPDIR%
 cd %TMPDIR%
 
-SET LCMS2_VER=2.16
+SET LCMS2_VER=2.17
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^
      https://github.com/mm2/Little-CMS/releases/download/lcms%LCMS2_VER%/lcms2-%LCMS2_VER%.tar.gz
-tar xzf lcms2-%LCMS2_VER%.tar.gz
+REM tar xzf lcms2-%LCMS2_VER%.tar.gz
+7z x lcms2-%LCMS2_VER%.tar.gz -so | 7z x -si -ttar
 cd lcms2-%LCMS2_VER%
 
 REM Build

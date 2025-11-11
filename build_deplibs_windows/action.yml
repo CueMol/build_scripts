@@ -29,32 +29,27 @@ runs:
   - name: Build boost
     shell: cmd
     run: |
-      REM cd ${GITHUB_WORKSPACE}
       build_deplibs_windows/build_boost.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Build glew
-  #   shell: cmd
-  #   run: |
-  #     REM cd ${GITHUB_WORKSPACE}
-  #     build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  - name: Build glew
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_glew.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Build lcms2
-  #   shell: cmd
-  #   run: |
-  #     REM cd ${GITHUB_WORKSPACE}
-  #     build_deplibs_windows/build_lcms2.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  - name: Build lcms2
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_lcms2.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Build fftw
-  #   shell: cmd
-  #   run: |
-  #     REM cd ${GITHUB_WORKSPACE}
-  #     build_deplibs_windows/build_fftw.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  - name: Build fftw
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_fftw.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
-  # - name: Build lzma
-  #   shell: cmd
-  #   run: |
-  #     REM cd ${GITHUB_WORKSPACE}
-  #     build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+  - name: Build lzma
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_lzma.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
   - name: Create deplibs tarball
     id: create-artifact
@@ -70,8 +65,8 @@ runs:
       dir %GITHUB_WORKSPACE%\%ARTIFACT_NAME%
       echo "artifact-path=%GITHUB_WORKSPACE%\%ARTIFACT_NAME%" >> %GITHUB_OUTPUT%
 
-  # - name: Check output
-  #   shell: cmd
-  #   run: |
-  #     ECHO ON
-  #     echo ${{ steps.create-artifact.outputs.artifact-path }}
+  - name: Check output
+    shell: cmd
+    run: |
+      ECHO ON
+      echo ${{ steps.create-artifact.outputs.artifact-path }}

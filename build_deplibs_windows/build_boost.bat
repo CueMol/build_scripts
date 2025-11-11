@@ -24,8 +24,6 @@ REM     https://sourceforge.net/projects/boost/files/boost/1.84.0/boost_1_84_0.t
 REM     https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.bz2
 
 rd /s /q %SRC_FILE%
-REM tar xjf %SRC_FILE%.tar.bz2
-REM 7z x %SRC_FILE%.tar.bz2 -aoa
 7z x %SRC_FILE%.tar.bz2 -so | 7z x -si -ttar
 cd %SRC_FILE%
 
