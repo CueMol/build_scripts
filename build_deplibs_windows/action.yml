@@ -26,6 +26,17 @@ runs:
   #     "--add", "Microsoft.VisualStudio.Component.Windows81SDK", `
   #     "--quiet", "--norestart", "--force", "--wait" -Wait -PassThru
 
+  - name: Test
+    id: test
+    shell: bash
+    env:
+      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+    run: |
+      set -eux
+      BASEDIR="${{ inputs.basedir }}"
+      BASEDIR=$(cygpath -u "$BASEDIR")
+      echo "BASEDIR=$BASEDIR"
+
   - name: Build boost
     shell: cmd
     run: |
