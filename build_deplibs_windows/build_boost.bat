@@ -40,6 +40,7 @@ b2 ^
  --with-thread ^
  --with-chrono ^
  --with-timer ^
+ --with-program_options ^
  -d0 ^
  link=shared threading=multi toolset=msvc address-model=64 install
 
