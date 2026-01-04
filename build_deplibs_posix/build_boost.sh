@@ -30,6 +30,7 @@ bash bootstrap.sh
  --with-thread \
  --with-chrono \
  --with-timer \
+ --with-program_options \
  -d0 \
 link=shared threading=multi install
 
