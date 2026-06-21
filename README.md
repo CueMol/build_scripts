@@ -23,15 +23,17 @@ as per-platform release tarballs.
 ## Repository layout
 
 ```
-.github/workflows/build.yml   CI: build deplibs on every platform, release on tag
+.github/workflows/build.yml   CI: build on main/PR/tag, publish Release on tag
 build_deplibs_posix/          Composite GitHub Action — deplibs for macOS / Linux
 build_deplibs_windows/        Composite GitHub Action — deplibs for Windows
+Taskfile.yml                  Release automation (go-task): bump + tag + push
 ```
 
 ## Continuous integration
 
-`.github/workflows/build.yml` builds the deplibs bundle on every push across a
-platform matrix and uploads each result as a workflow artifact:
+`.github/workflows/build.yml` builds the deplibs bundle across a platform matrix
+on pushes to `main`, on pull requests, and on `vX.Y.Z` tags (tags also publish a
+Release). Each job uploads its result as a workflow artifact:
 
 | Job | Runner | Artifact |
 | --- | --- | --- |
@@ -76,6 +78,23 @@ build_deplibs_windows\build_boost.bat <deplibs_dir> Windows X64
 
 ## Releases
 
-The `release_build` job collects all platform artifacts and publishes them to a
-GitHub Release when the pushed ref is a tag. Release versions are tagged manually
-— pushing a `vX.Y.Z` tag triggers the release.
+Releases are cut with [go-task](https://taskfile.dev) from the `main` branch.
+Pushing a `vX.Y.Z` tag triggers the workflow, which builds all four platform
+tarballs and publishes a GitHub Release with auto-generated notes.
+
+```sh
+task current                    # show the latest release tag
+task release:dry-run BUMP=patch # preview the next version (no tag/push)
+task release:patch              # bump patch, create + push an annotated tag
+task release:minor              # bump minor
+task release:major              # bump major
+```
+
+The version is derived from the latest git tag (`git describe`) — no manual
+editing. `task release:*` refuses to run unless the working tree is clean, you
+are on `main`, and `main` is in sync with `origin`.
+
+Once the tag is pushed, GitHub Actions builds `deplibs_<os>_<arch>.tar.bz2` on
+each platform, creates the Release via `softprops/action-gh-release`, attaches
+all `*.tar.bz2` files, and generates the release notes automatically — no GitHub
+web-UI steps required.

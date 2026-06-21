@@ -1,0 +1,75 @@
+version: '3'
+
+silent: true
+
+vars:
+  # Latest release tag, or v0.0.0 if none exists yet.
+  CURRENT:
+    sh: git describe --tags --abbrev=0 2>/dev/null || echo v0.0.0
+  # Branch releases must be cut from.
+  RELEASE_BRANCH: main
+
+tasks:
+  current:
+    desc: "Print the latest release tag."
+    cmds:
+      - 'echo {{.CURRENT}}'
+
+  release:
+    desc: "Cut a release. BUMP=patch|minor|major (DRY=1 to preview)."
+    requires:
+      vars: [BUMP]
+    vars:
+      NEXT:
+        sh: |
+          set -eu
+          case "{{.BUMP}}" in patch|minor|major) ;; *) echo "BUMP must be patch|minor|major" >&2; exit 1 ;; esac
+          ver="{{.CURRENT}}"; ver="${ver#v}"
+          IFS=. read -r MA MI PA <<EOF
+          $ver
+          EOF
+          : "${MA:=0}" "${MI:=0}" "${PA:=0}"
+          case "{{.BUMP}}" in
+            major) MA=$((MA + 1)); MI=0; PA=0 ;;
+            minor) MI=$((MI + 1)); PA=0 ;;
+            patch) PA=$((PA + 1)) ;;
+          esac
+          printf 'v%s.%s.%s' "$MA" "$MI" "$PA"
+    cmds:
+      - |
+        set -eu
+        echo "Current: {{.CURRENT}}"
+        echo "Next   : {{.NEXT}}  (bump={{.BUMP}})"
+        if [ "{{.DRY}}" = "1" ]; then echo "(dry-run: nothing tagged or pushed)"; exit 0; fi
+        git diff --quiet && git diff --cached --quiet || { echo "ERROR: working tree is dirty" >&2; exit 1; }
+        [ "$(git rev-parse --abbrev-ref HEAD)" = "{{.RELEASE_BRANCH}}" ] || { echo "ERROR: not on {{.RELEASE_BRANCH}}" >&2; exit 1; }
+        git fetch --tags origin {{.RELEASE_BRANCH}}
+        [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/{{.RELEASE_BRANCH}})" ] || { echo "ERROR: {{.RELEASE_BRANCH}} not in sync with origin" >&2; exit 1; }
+        if git rev-parse -q --verify "refs/tags/{{.NEXT}}" >/dev/null; then echo "ERROR: tag {{.NEXT}} already exists" >&2; exit 1; fi
+        git tag -a "{{.NEXT}}" -m "Release {{.NEXT}}"
+        git push origin "{{.NEXT}}"
+        echo "Pushed {{.NEXT}}. GitHub Actions will build and publish the release."
+
+  release:dry-run:
+    desc: "Preview the next version without tagging/pushing. BUMP=patch|minor|major."
+    cmds:
+      - task: release
+        vars: { BUMP: '{{.BUMP}}', DRY: '1' }
+
+  release:patch:
+    desc: "Release a patch version (vX.Y.Z+1)."
+    cmds:
+      - task: release
+        vars: { BUMP: patch }
+
+  release:minor:
+    desc: "Release a minor version (vX.Y+1.0)."
+    cmds:
+      - task: release
+        vars: { BUMP: minor }
+
+  release:major:
+    desc: "Release a major version (vX+1.0.0)."
+    cmds:
+      - task: release
+        vars: { BUMP: major }
