@@ -5,6 +5,9 @@ BASEDIR=$1
 RUNNER_OS=$2
 RUNNER_ARCH=$3
 
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
+
 #####
 
 TMPDIR=$BASEDIR/tmp
@@ -12,8 +15,6 @@ mkdir -p $TMPDIR
 cd $TMPDIR
 
 # get source
-# LCMS2_VER=2.15
-LCMS2_VER=2.17
 LCMS2_URL=https://github.com/mm2/Little-CMS/releases/download/lcms${LCMS2_VER}/lcms2-${LCMS2_VER}.tar.gz
 wget --progress=dot:mega ${LCMS2_URL}
 tar xzf lcms2-${LCMS2_VER}.tar.gz

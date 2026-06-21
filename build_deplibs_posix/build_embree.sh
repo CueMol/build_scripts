@@ -5,8 +5,8 @@ BASEDIR=$1
 RUNNER_OS=$2
 RUNNER_ARCH=$3
 
-EMBREE_VER=4.4.1
-TBB_VER=2023.0.0
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
 
 #####
 

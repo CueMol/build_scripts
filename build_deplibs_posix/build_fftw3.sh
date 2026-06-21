@@ -5,6 +5,9 @@ BASEDIR=$1
 RUNNER_OS=$2
 RUNNER_ARCH=$3
 
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
+
 #####
 
 TMPDIR=$BASEDIR/tmp
@@ -13,7 +16,6 @@ mkdir -p $TMPDIR
 cd $TMPDIR
 
 # get source
-FFTW_VER=3.3.10
 FFTW_URL=https://www.fftw.org/fftw-${FFTW_VER}.tar.gz
 wget --progress=dot:mega $FFTW_URL
 tar xzf fftw-${FFTW_VER}.tar.gz

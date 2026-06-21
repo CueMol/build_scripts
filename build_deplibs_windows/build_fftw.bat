@@ -10,7 +10,8 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
-SET FFTW_VER=3.3.10
+REM Centralized versions (skip # comment lines)
+for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
 
 SET INSTPATH=%BASEDIR%\fftw-%FFTW_VER%
 echo INSTPATH: %INSTPATH%

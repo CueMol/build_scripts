@@ -74,6 +74,8 @@ runs:
       BASEDIR=${{ inputs.basedir }}
       # Clean-up
       rm -rf $BASEDIR/tmp
+      # Bundle the version manifest so consumers can read it from the tarball
+      cp "${GITHUB_WORKSPACE}/deplibs.env" "$BASEDIR/"
       cd $BASEDIR/..
       tar cjf ${GITHUB_WORKSPACE}/${ARTIFACT_NAME} target
       cd ${GITHUB_WORKSPACE}

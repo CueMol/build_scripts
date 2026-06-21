@@ -17,10 +17,14 @@ as per-platform release tarballs.
 | TBB     | 2023.0.0 | static | oneTBB; static (upstream-discouraged scheduler-duplication caveat accepted) |
 | Embree  | 4.4.1   | static | `EMBREE_STATIC_LIB=ON`, TBB tasking; minimal ISA only — SSE2 (x86) / NEON (arm64) |
 | CGAL    | 6.1     | static | GMP disabled, no Qt5 / ImageIO |
-| GLEW    | 2.1.0 (POSIX, from source) / 2.2.0 (Windows, prebuilt) | static | |
+| GLEW    | 2.2.0   | static | POSIX from source, Windows prebuilt |
 | lcms2   | 2.17    | static | |
 | FFTW    | 3.3.10  | static | single precision (`--enable-float`) |
 | LZMA (xz) | 5.2.12 | static | Windows only |
+
+All versions are defined centrally in [`deplibs.env`](deplibs.env). Each build
+script sources it, and the file is bundled into every tarball as
+`target/deplibs.env` so downstream builds can read the exact versions.
 
 ## Repository layout
 
@@ -28,6 +32,7 @@ as per-platform release tarballs.
 .github/workflows/build.yml   CI: build on main/PR/tag, publish Release on tag
 build_deplibs_posix/          Composite GitHub Action — deplibs for macOS / Linux
 build_deplibs_windows/        Composite GitHub Action — deplibs for Windows
+deplibs.env                   Centralized dependency-library versions
 Taskfile.yml                  Release automation (go-task): bump + tag + push
 ```
 

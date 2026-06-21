@@ -10,13 +10,15 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
+REM Centralized versions (skip # comment lines)
+for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
+SET BOOST_VER_DOT=%BOOST_VER:_=.%
+
 mkdir %TMPDIR%
 cd %TMPDIR%
 
-SET BOOST_VER=boost_1_84_0
-SET BOOST_VER=1_84_0
 SET SRC_FILE=boost_%BOOST_VER%
-SET SRC_URL=https://archives.boost.io/release/1.84.0/source/%SRC_FILE%.tar.bz2
+SET SRC_URL=https://archives.boost.io/release/%BOOST_VER_DOT%/source/%SRC_FILE%.tar.bz2
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega -O %SRC_FILE%.tar.bz2 %SRC_URL%
