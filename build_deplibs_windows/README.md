@@ -4,6 +4,12 @@ choco install wget unzip
 Boost
 build_boost.bat <deplibs_dir> Windows X64
 
+TBB
+build_tbb.bat <deplibs_dir> Windows X64
+
+Embree
+build_embree.bat <deplibs_dir> Windows X64
+
 FFTW
 build_fftw.bat <deplibs_dir> Windows X64
 

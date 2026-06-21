@@ -22,6 +22,20 @@ runs:
       BASEDIR=${{ inputs.basedir }}
       bash build_deplibs_posix/build_boost.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Install TBB
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_posix/build_tbb.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+
+  - name: Install Embree
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_posix/build_embree.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+
   - name: Install CGAL
     shell: bash
     run: |
