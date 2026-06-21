@@ -5,9 +5,8 @@ BASEDIR=$1
 RUNNER_OS=$2
 RUNNER_ARCH=$3
 
-# CGAL_VER="4.14.3"
-CGAL_VER="6.1"
-BOOST_VER="1_84_0"
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
 
 #####
 

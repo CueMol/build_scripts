@@ -10,10 +10,11 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
+REM Centralized versions (skip # comment lines)
+for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
+
 mkdir %TMPDIR%
 cd %TMPDIR%
-
-SET LCMS2_VER=2.17
 
 REM Get source
 wget --content-disposition -c --progress=dot:mega ^

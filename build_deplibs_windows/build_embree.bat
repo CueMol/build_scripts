@@ -10,8 +10,8 @@ SET RUNNER_OS=%2
 SET RUNNER_ARCH=%3
 SET TMPDIR=%BASEDIR%\tmp
 
-SET EMBREE_VER=4.4.1
-SET TBB_VER=2023.0.0
+REM Centralized versions (skip # comment lines)
+for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
 
 mkdir %TMPDIR%
 cd %TMPDIR%

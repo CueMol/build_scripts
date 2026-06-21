@@ -4,12 +4,15 @@ set -eux
 BASEDIR=$1
 TMPDIR=$BASEDIR/tmp
 
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
+BOOST_VER_DOT=$(echo "$BOOST_VER" | tr '_' '.')
+
 mkdir -p $TMPDIR
 cd $TMPDIR
 
-BOOST_VER=1_84_0
 SRC_FILE=boost_$BOOST_VER.tar.bz2
-SRC_URL=https://archives.boost.io/release/1.84.0/source/$SRC_FILE
+SRC_URL=https://archives.boost.io/release/${BOOST_VER_DOT}/source/$SRC_FILE
 
 # get source
 wget --progress=dot:giga $SRC_URL

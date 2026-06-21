@@ -9,11 +9,11 @@ SET BASEDIR=%1
 
 SET TMPDIR=%BASEDIR%\tmp
 
+REM Centralized versions (skip # comment lines)
+for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
+
 mkdir %TMPDIR%
 cd %TMPDIR%
-
-SET CGAL_VER=6.1
-SET BOOST_VER=1_84_0
 
 wget --content-disposition -c --progress=dot:mega ^
      https://github.com/CGAL/cgal/releases/download/v%CGAL_VER%/CGAL-%CGAL_VER%.tar.xz

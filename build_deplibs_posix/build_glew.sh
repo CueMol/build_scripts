@@ -6,11 +6,13 @@ RUNNER_OS=$2
 RUNNER_ARCH=$3
 TMPDIR=$BASEDIR/tmp
 
+# Centralized versions
+source "$(dirname "$0")/../deplibs.env"
+
 mkdir -p $TMPDIR
 cd $TMPDIR
 
 # get source
-GLEW_VER=2.1.0
 GLEW_URL=https://sourceforge.net/projects/glew/files/glew/${GLEW_VER}/glew-${GLEW_VER}.tgz/download
 wget --content-disposition -O glew-${GLEW_VER}.tgz $GLEW_URL
      
