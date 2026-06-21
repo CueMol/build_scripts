@@ -20,6 +20,16 @@ runs:
     run: |
       build_deplibs_windows/build_boost.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build TBB
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_tbb.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
+  - name: Build Embree
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_embree.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
   - name: Build CGAL
     shell: cmd
     run: |
