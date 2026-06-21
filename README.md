@@ -15,7 +15,7 @@ as per-platform release tarballs.
 | --- | --- | --- | --- |
 | Boost   | 1.84.0  | shared | `date_time`, `filesystem`, `iostreams`, `system`, `thread`, `chrono`, `timer`, `program_options` |
 | TBB     | 2023.0.0 | static | oneTBB; static (upstream-discouraged scheduler-duplication caveat accepted) |
-| Embree  | 4.4.1   | static | `EMBREE_STATIC_LIB=ON`, TBB tasking; AVX2 (x86) / NEON (arm64) |
+| Embree  | 4.4.1   | static | `EMBREE_STATIC_LIB=ON`, TBB tasking; minimal ISA only — SSE2 (x86) / NEON (arm64) |
 | CGAL    | 6.1     | static | GMP disabled, no Qt5 / ImageIO |
 | GLEW    | 2.1.0 (POSIX, from source) / 2.2.0 (Windows, prebuilt) | static | |
 | lcms2   | 2.17    | static | |

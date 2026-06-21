@@ -34,11 +34,14 @@ else
     exit 1
 fi
 
-# ISA: x86_64 -> AVX2; arm64 -> let Embree auto-detect NEON (do not pass x86 ISA names)
+# Build only the most basic ISA to keep build times short.
+# x86_64 -> SSE2 (baseline for all x86-64 CPUs).
+# arm64  -> plain NEON; disable the double-pumped NEON2X (slow to build and the
+#           source of the Apple-clang EXC_BAD_INSTRUCTION issue).
 if [ "$RUNNER_ARCH" = "ARM64" ]; then
-    ISA_OPTIONS=""
+    ISA_OPTIONS="-DEMBREE_ISA_NEON=ON -DEMBREE_ISA_NEON2X=OFF"
 else
-    ISA_OPTIONS="-DEMBREE_MAX_ISA=AVX2"
+    ISA_OPTIONS="-DEMBREE_MAX_ISA=SSE2"
 fi
 
 mkdir -p build
