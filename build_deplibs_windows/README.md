@@ -10,6 +10,9 @@ build_tbb.bat <deplibs_dir> Windows X64
 Embree
 build_embree.bat <deplibs_dir> Windows X64
 
+OIDN
+build_oidn.bat <deplibs_dir> Windows X64
+
 FFTW
 build_fftw.bat <deplibs_dir> Windows X64
 

@@ -30,6 +30,11 @@ runs:
     run: |
       build_deplibs_windows/build_embree.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Build OIDN
+    shell: cmd
+    run: |
+      build_deplibs_windows/build_oidn.bat ${{ inputs.basedir }} ${{ runner.os }} ${{ runner.arch }}
+
   - name: Build CGAL
     shell: cmd
     run: |

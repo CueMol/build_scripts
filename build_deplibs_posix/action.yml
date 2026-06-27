@@ -36,6 +36,13 @@ runs:
       BASEDIR=${{ inputs.basedir }}
       bash build_deplibs_posix/build_embree.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
+  - name: Install OIDN
+    shell: bash
+    run: |
+      cd ${GITHUB_WORKSPACE}
+      BASEDIR=${{ inputs.basedir }}
+      bash build_deplibs_posix/build_oidn.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
+
   - name: Install CGAL
     shell: bash
     run: |
