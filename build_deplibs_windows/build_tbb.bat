@@ -27,17 +27,18 @@ echo INSTPATH: %INSTPATH%
 
 rd /s /q build
 cmake -S . -B build ^
-  -A x64 -T host=x64 ^
+  -G Ninja ^
+  -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SHARED_LIBS=OFF ^
   -DTBB_TEST=OFF ^
   -DTBB_STRICT=OFF ^
   -DTBB_INSTALL=ON ^
   -DCMAKE_INSTALL_PREFIX="%INSTPATH%"
 
-cmake --build build --config Release
+cmake --build build
 
 rd /s /q %INSTPATH%
-cmake --install build --config Release
+cmake --install build
 
 dir %INSTPATH%
 

@@ -51,6 +51,7 @@ cd build
 # static TBB (otherwise the install step tries to copy a non-existent TBB shared lib).
 # TBB_DIR points at the cmake config dir, not the install root.
 cmake .. \
+      -G Ninja \
       -DCMAKE_INSTALL_PREFIX=$EMBREE_INSTPATH \
       -DCMAKE_BUILD_TYPE="Release" \
       ${OPTIONS} \
@@ -63,8 +64,8 @@ cmake .. \
       -DEMBREE_TUTORIALS=OFF \
       ${ISA_OPTIONS}
 
-make -j 8
-make install
+cmake --build . -j 8
+cmake --install .
 
 # Clean-up
 rm -rf $TMPDIR

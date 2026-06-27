@@ -1,5 +1,10 @@
 Administrator cmd
-choco install wget unzip
+choco install wget unzip ninja
+
+The CMake-based libraries (TBB, Embree, OIDN, CGAL, FFTW, LibLZMA) build with the
+Ninja generator and MSVC, so run these from a "x64 Native Tools Command Prompt"
+(or after vcvars64.bat) so cl.exe / ninja are on PATH. In CI this is set up by
+ilammy/msvc-dev-cmd.
 
 Boost
 build_boost.bat <deplibs_dir> Windows X64

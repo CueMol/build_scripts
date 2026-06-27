@@ -30,7 +30,8 @@ REM Static Embree with TBB tasking. EMBREE_INSTALL_DEPENDENCIES=OFF is required 
 REM static TBB. TBB_DIR points at the cmake config dir, not the install root.
 rd /s /q build
 cmake -S . -B build ^
-  -A x64 -T host=x64 ^
+  -G Ninja ^
+  -DCMAKE_BUILD_TYPE=Release ^
   -DEMBREE_STATIC_LIB=ON ^
   -DEMBREE_TASKING_SYSTEM=TBB ^
   -DEMBREE_TBB_ROOT="%TBB_INSTPATH%" ^
@@ -41,10 +42,10 @@ cmake -S . -B build ^
   -DEMBREE_MAX_ISA=SSE2 ^
   -DCMAKE_INSTALL_PREFIX="%INSTPATH%"
 
-cmake --build build --config Release
+cmake --build build
 
 rd /s /q %INSTPATH%
-cmake --install build --config Release
+cmake --install build
 
 dir %INSTPATH%
 

@@ -29,14 +29,15 @@ echo INSTPATH: %INSTPATH%
 
 rd /s /q build
 cmake -S . -B build ^
+  -G Ninja ^
+  -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SHARED_LIBS=OFF ^
-  -A x64 -T host=x64 ^
   -DCMAKE_INSTALL_PREFIX="%INSTPATH%"
 
-cmake --build build --config Release
+cmake --build build
 
 rd /s /q %INSTPATH%
-cmake --install build --config Release
+cmake --install build
 
 REM Cleanup
 cd %BASEDIR%

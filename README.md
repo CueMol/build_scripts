@@ -72,8 +72,11 @@ bash build_deplibs_posix/build_boost.sh <basedir> <os> <arch>
 - `<os>` — `macOS` or `Linux` (selects compiler / `-fPIC` flags).
 - `<arch>` — passed through for naming (e.g. `X64`, `ARM64`).
 
-Prerequisites: `automake` on macOS; `libgl-dev libglu1-mesa-dev` on Linux
-(see the CI `Install prerequisites` steps).
+The CMake-based libraries (TBB, Embree, OIDN, CGAL) build with the **Ninja**
+generator, so `ninja` must be on `PATH`.
+
+Prerequisites: `automake` + `ninja` on macOS; `libgl-dev libglu1-mesa-dev` +
+`ninja-build` on Linux (see the CI `Install prerequisites` steps).
 
 ### Windows
 
