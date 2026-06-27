@@ -61,6 +61,7 @@ cd build
 # (multiple ISPC targets dispatched at runtime). TBB_DIR points at the cmake config
 # dir; TBB_ROOT at the install root (both passed for robust find_package(TBB)).
 cmake .. \
+      -G Ninja \
       -DCMAKE_INSTALL_PREFIX=$OIDN_INSTPATH \
       -DCMAKE_BUILD_TYPE="Release" \
       ${OPTIONS} \
@@ -77,8 +78,8 @@ cmake .. \
       -DTBB_ROOT=$TBB_INSTPATH \
       -DTBB_DIR=$TBB_INSTPATH/lib/cmake/TBB
 
-make -j 8
-make install
+cmake --build . -j 8
+cmake --install .
 
 # Clean-up (also removes the build-time-only ISPC under TMPDIR)
 rm -rf $TMPDIR

@@ -31,6 +31,7 @@ SET INSTPATH=%DEPLIBS_DIR%\CGAL-%CGAL_VER%
 mkdir build
 
 cmake -S . -B build ^
+ -G Ninja ^
  -DCMAKE_INSTALL_PREFIX=%INSTPATH% ^
  -DCMAKE_BUILD_TYPE="Release" ^
  -DBOOST_ROOT=%DEPLIBS_DIR%\boost_%BOOST_VER% ^
@@ -42,10 +43,10 @@ cmake -S . -B build ^
 
 REM  -DCMAKE_CXX_FLAGS="-std=c++14"
 
-cmake --build build --config Release
+cmake --build build
 
 rd /s /q %INSTPATH%
-cmake --install build --config Release
+cmake --install build
 
 dir %INST_PATH%
 

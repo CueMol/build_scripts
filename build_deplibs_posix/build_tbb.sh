@@ -39,6 +39,7 @@ cd build
 # Static build: TBB_STRICT=OFF avoids -Werror on newer compilers,
 # TBB_INSTALL=ON emits lib/cmake/TBB/TBBConfig.cmake for downstream find_package.
 cmake .. \
+      -G Ninja \
       -DCMAKE_INSTALL_PREFIX=$TBB_INSTPATH \
       -DCMAKE_BUILD_TYPE="Release" \
       ${OPTIONS} \
@@ -47,8 +48,8 @@ cmake .. \
       -DTBB_STRICT=OFF \
       -DTBB_INSTALL=ON
 
-make -j 8
-make install
+cmake --build . -j 8
+cmake --install .
 
 # Clean-up
 rm -rf $TMPDIR

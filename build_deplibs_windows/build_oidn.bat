@@ -40,7 +40,8 @@ REM OIDN_STATIC_LIB yields a fully static library. ISA is left at the default.
 REM TBB_DIR points at the cmake config dir, not the install root.
 rd /s /q build
 cmake -S . -B build ^
-  -A x64 -T host=x64 ^
+  -G Ninja ^
+  -DCMAKE_BUILD_TYPE=Release ^
   -DOIDN_STATIC_LIB=ON ^
   -DOIDN_DEVICE_CPU=ON ^
   -DOIDN_DEVICE_SYCL=OFF ^
@@ -55,10 +56,10 @@ cmake -S . -B build ^
   -DTBB_DIR="%TBB_INSTPATH%\lib\cmake\TBB" ^
   -DCMAKE_INSTALL_PREFIX="%INSTPATH%"
 
-cmake --build build --config Release
+cmake --build build
 
 rd /s /q %INSTPATH%
-cmake --install build --config Release
+cmake --install build
 
 dir %INSTPATH%
 
