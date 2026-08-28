@@ -1,0 +1,55 @@
+name: Mirror third-party sources
+
+# Publishes upstream tarballs listed in mirror/manifest.txt as assets of a
+# fixed-tag release, so CI in consumer repositories never has to fetch them from
+# unreliable origin hosts. The tag is immutable; assets are refreshed in place.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  MIRROR_TAG: thirdparty-mirror
+
+jobs:
+  mirror:
+    name: "Fetch, verify and publish"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Fetch and verify
+      run: |
+        set -eu
+        mkdir -p dist
+        while read -r name sha urls; do
+          case "$name" in ''|\#*) continue ;; esac
+          ok=0
+          for url in $urls; do
+            echo "==> $name from $url"
+            if curl -fsSL --retry 3 --connect-timeout 20 \
+                 -o "dist/$name" "$url"; then ok=1; break; fi
+            echo "    failed: $url" >&2
+          done
+          [ "$ok" = 1 ] || { echo "ERROR: all sources failed for $name" >&2; exit 1; }
+          echo "$sha  dist/$name" | sha256sum -c -
+        done < mirror/manifest.txt
+        ls -l dist
+
+    - name: Publish to the mirror release
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -eu
+        # --latest=false keeps the newest deplibs vX.Y.Z release marked as latest.
+        gh release view "$MIRROR_TAG" >/dev/null 2>&1 || \
+          gh release create "$MIRROR_TAG" \
+            --title "Third-party source mirror" \
+            --notes "Mirrored upstream tarballs (see mirror/manifest.txt). The tag is immutable; assets are refreshed by the Mirror third-party sources workflow." \
+            --latest=false
+        gh release upload "$MIRROR_TAG" dist/* --clobber

@@ -30,11 +30,13 @@ script sources it, and the file is bundled into every tarball as
 ## Repository layout
 
 ```
-.github/workflows/build.yml   CI: build on main/PR/tag, publish Release on tag
-build_deplibs_posix/          Composite GitHub Action — deplibs for macOS / Linux
-build_deplibs_windows/        Composite GitHub Action — deplibs for Windows
-deplibs.env                   Centralized dependency-library versions
-Taskfile.yml                  Release automation (go-task): bump + tag + push
+.github/workflows/build.yml              CI: build on main/PR/tag, publish Release on tag
+.github/workflows/mirror_thirdparty.yml  Manual: refresh the third-party source mirror
+build_deplibs_posix/                     Composite GitHub Action — deplibs for macOS / Linux
+build_deplibs_windows/                   Composite GitHub Action — deplibs for Windows
+deplibs.env                              Centralized dependency-library versions
+mirror/manifest.txt                      Files published to the third-party source mirror
+Taskfile.yml                             Release automation (go-task): bump + tag + push
 ```
 
 ## Continuous integration
@@ -54,6 +56,47 @@ The macOS/Linux jobs use the `build_deplibs_posix` composite action and the
 Windows job uses `build_deplibs_windows`. Each produces a
 `deplibs_<os>_<arch>.tar.bz2` tarball whose contents are the installed libraries
 under `target/`.
+
+## Third-party source mirror
+
+Some upstream hosts are too unreliable to fetch from CI (`ftp.gnu.org` in
+particular). Their tarballs are mirrored here as assets of a **fixed-tag**
+release, `thirdparty-mirror`, giving consumers a permanent URL:
+
+```
+https://github.com/CueMol/build_scripts/releases/download/thirdparty-mirror/<filename>
+```
+
+This release is deliberately separate from the versioned `vX.Y.Z` deplibs
+releases: the tag never changes, so consumers do not have to track
+`DEPLIBS_VERSION`, and a mirror outage can never break a deplibs release.
+It is published with `--latest=false` so the newest `vX.Y.Z` release stays
+marked as *Latest*.
+
+Current consumer: the macOS UXP GUI build in
+[`cuemol2`](https://github.com/CueMol/cuemol2) needs `autoconf 2.13`
+(`build_scripts/download_deplibs/action.yml`), and pins the expected sha256 in
+its own `build_scripts/deplibs.env`.
+
+### Adding or refreshing a mirrored file
+
+1. Add a line to [`mirror/manifest.txt`](mirror/manifest.txt):
+
+   ```
+   <filename> <sha256> <url> [fallback-url ...]
+   ```
+
+   URLs are tried in order; the first successful download wins and must match
+   the sha256. Get the checksum from the upstream project, or compute it with
+   `curl -fsSL <url> | shasum -a 256`.
+
+2. Merge to `main`, then run the **Mirror third-party sources** workflow from
+   the Actions tab (`workflow_dispatch`). It downloads every manifest entry,
+   verifies the checksums, creates the `thirdparty-mirror` release if it does
+   not exist yet, and uploads the files with `--clobber`.
+
+Because assets are replaced in place, re-running the workflow is idempotent and
+is also how you repair a corrupted asset.
 
 ## Building deplibs locally
 
@@ -102,7 +145,8 @@ task release:minor              # bump minor
 task release:major              # bump major
 ```
 
-The version is derived from the latest git tag (`git describe`) — no manual
+The version is derived from the latest git tag (`git describe --match 'v*.*.*'`,
+so non-version tags such as `thirdparty-mirror` are ignored) — no manual
 editing. `task release:*` refuses to run unless the working tree is clean, you
 are on `main`, and `main` is in sync with `origin`.
 
