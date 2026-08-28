@@ -1,0 +1,11 @@
+# Files mirrored into the "thirdparty-mirror" release of this repository.
+# Format: <filename> <sha256> <url> [fallback-url ...]
+# URLs are tried in order; the first successful download wins and must match sha256.
+# Blank lines and lines starting with '#' are ignored.
+#
+# Add an entry here when an upstream host is too unreliable to fetch from CI
+# directly, then run the "Mirror third-party sources" workflow to publish it.
+
+# autoconf 2.13, required by the macOS UXP GUI build in CueMol/cuemol2.
+# ftp.gnu.org is frequently unreachable, so a GNU mirror is tried first.
+autoconf-2.13.tar.gz f0611136bee505811e9ca11ca7ac188ef5323a8e2ef19cffd3edb3cf08fd791e https://ftp.st.ryukoku.ac.jp/pub/gnu/autoconf/autoconf-2.13.tar.gz https://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz

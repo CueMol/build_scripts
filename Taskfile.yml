@@ -5,7 +5,7 @@ silent: true
 vars:
   # Latest release tag, or v0.0.0 if none exists yet.
   CURRENT:
-    sh: git describe --tags --abbrev=0 2>/dev/null || echo v0.0.0
+    sh: git describe --tags --abbrev=0 --match 'v*.*.*' 2>/dev/null || echo v0.0.0
   # Branch releases must be cut from.
   RELEASE_BRANCH: main
 
