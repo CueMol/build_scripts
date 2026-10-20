@@ -107,8 +107,13 @@ jobs:
 ###############################################
 
   build_win_x64:
-    name: "Windows intel msvc"
+    name: "Windows intel clang-cl"
     runs-on: windows-2022
+    env:
+      # TBB / Embree / OIDN / FFTW / xz build with clang-cl (build_deplibs_windows/
+      # win_cc.bat). Boost, lcms2 and GLEW stay MSVC-built; clang-cl shares the
+      # MSVC ABI, so MSVC and clang-cl consumers link the whole bundle.
+      DEPLIBS_WIN_CC: clang-cl
     steps:
 
     - name: Install prerequisite
@@ -121,6 +126,14 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x64
+
+    # Pin the LLVM version (same as the cuemol2 Windows build); the runner image's
+    # own LLVM moves with image updates. vcvars stays required for clang-cl.
+    - name: Install LLVM (clang-cl)
+      shell: pwsh
+      run: |
+        choco install llvm --version=22.1.8 -y --allow-downgrade --no-progress
+        echo "C:\Program Files\LLVM\bin" >> $env:GITHUB_PATH
 
     - name: Build deplibs
       id: build-artifact
