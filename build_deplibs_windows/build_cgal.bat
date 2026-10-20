@@ -12,6 +12,11 @@ SET TMPDIR=%BASEDIR%\tmp
 REM Centralized versions (skip # comment lines)
 for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
 
+REM Compiler (win_cc.bat). CGAL is header-only, but name the compiler so CMake
+REM does not pick whatever comes first on PATH (e.g. a GNU-style clang).
+call "%~dp0win_cc.bat"
+if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+
 mkdir %TMPDIR%
 cd %TMPDIR%
 
@@ -32,6 +37,7 @@ mkdir build
 
 cmake -S . -B build ^
  -G Ninja ^
+ %DEPLIBS_CC_OPT% ^
  -DCMAKE_INSTALL_PREFIX=%INSTPATH% ^
  -DCMAKE_BUILD_TYPE="Release" ^
  -DBOOST_ROOT=%DEPLIBS_DIR%\boost_%BOOST_VER% ^

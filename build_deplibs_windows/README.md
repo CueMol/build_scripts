@@ -5,7 +5,7 @@ The CMake-based libraries (TBB, Embree, OIDN, CGAL, FFTW, LibLZMA) build with th
 Ninja generator. TBB, Embree, OIDN, FFTW and LibLZMA use clang-cl + lld-link by
 default (win_cc.bat; set DEPLIBS_WIN_CC=cl for MSVC cl). clang-cl targets the MSVC
 ABI, so the bundle stays link-compatible with MSVC consumers; Boost (b2), lcms2
-(vcxproj) and GLEW (prebuilt) stay MSVC-built. Run these from a "x64 Native Tools
+(vcxproj) and GLEW (prebuilt) stay MSVC-built; CGAL is header-only and only configured (with the same compiler). Run these from a "x64 Native Tools
 Command Prompt" (or after vcvars64.bat) so the MSVC STL/SDK, cl.exe and ninja are
 on PATH; clang-cl is taken from PATH or C:\Program Files\LLVM\bin. In CI this is
 set up by ilammy/msvc-dev-cmd plus a pinned LLVM install.
