@@ -13,6 +13,10 @@ SET TMPDIR=%BASEDIR%\tmp
 REM Centralized versions (skip # comment lines)
 for /f "usebackq eol=# tokens=1,2 delims==" %%a in ("%~dp0..\deplibs.env") do set "%%a=%%b"
 
+REM Compiler (win_cc.bat): clang-cl by default, DEPLIBS_WIN_CC=cl for MSVC
+call "%~dp0win_cc.bat"
+if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+
 mkdir %TMPDIR%
 cd %TMPDIR%
 
@@ -30,11 +34,13 @@ echo INSTPATH: %INSTPATH%
 rd /s /q build
 cmake -S . -B build ^
   -G Ninja ^
+  %DEPLIBS_CC_OPT% ^
   -DCMAKE_BUILD_TYPE=Release ^
   -DBUILD_SHARED_LIBS=OFF ^
   -DCMAKE_INSTALL_PREFIX="%INSTPATH%"
 
 cmake --build build
+if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 rd /s /q %INSTPATH%
 cmake --install build
