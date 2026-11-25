@@ -5,6 +5,16 @@ inputs:
   basedir:
      description: 'base dir'
      required: true
+  name-suffix:
+     description: >-
+       Appended to the OS part of the tarball name, for a build that shares the
+       runner OS/arch with another one (e.g. "-manylinux" in a container)
+     required: false
+     default: ''
+  with-glew:
+     description: 'Build GLEW (only the OpenGL GUI builds use it)'
+     required: false
+     default: 'true'
 
 outputs:
   artifact-path:
@@ -51,6 +61,7 @@ runs:
       bash build_deplibs_posix/build_cgal.sh $BASEDIR ${{ runner.os }} ${{ runner.arch }}
 
   - name: Install glew
+    if: inputs.with-glew == 'true'
     shell: bash
     run: |
       cd ${GITHUB_WORKSPACE}
@@ -75,7 +86,7 @@ runs:
     id: create-artifact
     shell: bash
     env:
-      ARTIFACT_NAME: deplibs_${{ runner.os }}_${{ runner.arch }}.tar.bz2
+      ARTIFACT_NAME: deplibs_${{ runner.os }}${{ inputs.name-suffix }}_${{ runner.arch }}.tar.bz2
     run: |
       set -eux
       BASEDIR=${{ inputs.basedir }}
