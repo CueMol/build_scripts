@@ -50,12 +50,18 @@ Release). Each job uploads its result as a workflow artifact:
 | `build_mac_arm64` | `macos-15`        | `deplibs_mac_arm64` |
 | `build_mac_x64`   | `macos-15-intel`  | `deplibs_mac_x64` |
 | `build_linux_x64` | `ubuntu-22.04`    | `deplibs_linux_x64` |
+| `build_linux_manylinux_x64` | `manylinux_2_28` container | `deplibs_linux_manylinux_x64` |
 | `build_win_x64`   | `windows-2022`    | `deplibs_windows_x64` |
 
 The macOS/Linux jobs use the `build_deplibs_posix` composite action and the
 Windows job uses `build_deplibs_windows`. Each produces a
 `deplibs_<os>_<arch>.tar.bz2` tarball whose contents are the installed libraries
 under `target/`.
+
+The manylinux job builds the same libraries (without GLEW) on glibc 2.28, for
+binaries that must also run on RHEL 8 class systems (the portable cuetty
+tarball). Its tarball is `deplibs_Linux-manylinux_X64.tar.bz2`, named apart
+from the Ubuntu one through the action's `name-suffix` input.
 
 ## Third-party source mirror
 

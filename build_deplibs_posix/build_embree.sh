@@ -28,7 +28,9 @@ TBB_INSTPATH=$BASEDIR/tbb-${TBB_VER}
 if [ $RUNNER_OS = "macOS" ]; then
     OPTIONS="-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
 elif [ $RUNNER_OS = "Linux" ]; then
-    OPTIONS="-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+    # lib, not lib64: GNUInstallDirs picks lib64 on the AlmaLinux-based
+    # manylinux image, while consumers look under <pkg>/lib.
+    OPTIONS="-DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_LIBDIR=lib"
 else
     echo "unknown runner os: $RUNNER_OS"
     exit 1

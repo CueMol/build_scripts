@@ -106,6 +106,42 @@ jobs:
 
 ###############################################
 
+  # Linux x64 for binaries that must run on older distributions (RHEL 8 and
+  # later): glibc 2.28, the gcc-toolset compiler. Used by the portable cuetty
+  # tarball; the Ubuntu build above stays for the AppImage / deb.
+  build_linux_manylinux_x64:
+    name: "manylinux_2_28 x64 gcc"
+    runs-on: ubuntu-22.04
+    container: quay.io/pypa/manylinux_2_28_x86_64
+
+    steps:
+
+    - name: Install prerequisites
+      run: |
+        dnf install -y wget bzip2 xz perl
+        command -v ninja || pipx install ninja
+        command -v cmake || pipx install cmake
+        gcc --version
+        cmake --version
+
+    - uses: actions/checkout@v4
+
+    - name: Build deplibs
+      id: build-artifact
+      uses: ./build_deplibs_posix
+      with:
+        basedir: ${{ github.workspace }}/target
+        name-suffix: -manylinux
+        with-glew: 'false'
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deplibs_linux_manylinux_x64
+        path: ${{ steps.build-artifact.outputs.artifact-path }}
+
+###############################################
+
   build_win_x64:
     name: "Windows intel clang-cl"
     runs-on: windows-2022
@@ -152,7 +188,7 @@ jobs:
 ###############################################
 
   release_build:
-    needs: [build_mac_arm64,build_mac_x64,build_linux_x64,build_win_x64]
+    needs: [build_mac_arm64,build_mac_x64,build_linux_x64,build_linux_manylinux_x64,build_win_x64]
     runs-on: ubuntu-latest
     permissions:
       contents: write
