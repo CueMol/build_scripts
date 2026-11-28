@@ -9,3 +9,13 @@
 # autoconf 2.13, required by the macOS UXP GUI build in CueMol/cuemol2.
 # ftp.gnu.org is frequently unreachable, so a GNU mirror is tried first.
 autoconf-2.13.tar.gz f0611136bee505811e9ca11ca7ac188ef5323a8e2ef19cffd3edb3cf08fd791e https://ftp.st.ryukoku.ac.jp/pub/gnu/autoconf/autoconf-2.13.tar.gz https://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz
+
+# ffmpeg binaries bundled with CueMol (download_extpkgs in CueMol/cuemol2).
+# osxexperts.net keeps only its newest builds, so the files CI fetched
+# disappear without notice; the version is part of each file name.
+# macOS arm64 (ffmpeg 9.1) and x64 (ffmpeg 8.0, the newest intel build there).
+ffmpeg91arm.zip 2d645bb619ba294ae7a4f7a01aa251d549610bfdcd82c7ec03fc963afcb59d5a https://www.osxexperts.net/ffmpeg91arm.zip
+ffmpeg80intel.zip 2d24d22db78c87f394a5822867acd5c5dc5e762cd261a44bd26923f3a5af3e07 https://www.osxexperts.net/ffmpeg80intel.zip
+# Windows x64 (gyan.dev release essentials build, GPL); the GitHub release of
+# GyanD/codexffmpeg is the same file and is tried first.
+ffmpeg-9.1-essentials_build.zip b9bbbb3acece000cbeec994f856649354e52c773807841e78908374b24d658fd https://github.com/GyanD/codexffmpeg/releases/download/9.1/ffmpeg-9.1-essentials_build.zip https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-9.1-essentials_build.zip
